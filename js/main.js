@@ -5,6 +5,7 @@
  */
 
 import { initIntro } from './intro.js';
+import { initLockGate } from './lockgate.js';
 import { initSpine } from './spine.js';
 import { injectIcons, initIconAnimations } from './icons.js';
 import { loadProjects } from './projects.js';
@@ -40,10 +41,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // 8. Load Projects from GitHub API or fallback
   loadProjects();
 
-  // 9. Run Intro (First load only)
+  // 9. Prepare the playful lock gate, then run the intro and reveal the gate.
+  const lockGate = initLockGate({
+    onClose: () => {
+      // Re-verify spine alignment after the gate fades out
+      window.dispatchEvent(new Event('resize'));
+    },
+  });
+
   initIntro(() => {
     // Re-verify spine alignment after intro fades out
     window.dispatchEvent(new Event('resize'));
+    lockGate.open();
   });
 });
 

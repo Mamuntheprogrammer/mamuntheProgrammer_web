@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { LOCK_CHALLENGES, normalizeAnswer } from '../js/lockgate.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
@@ -87,6 +88,65 @@ test('intro draws the name on load and can be skipped', () => {
   assert.match(intro, /path\.animate\(/);
   assert.match(intro, /idx \* 110/);
   assert.ok(!intro.includes('alreadyShown'), 'the intro should replay on each page load');
+});
+
+test('lock gate presents nine expertise challenges with answers and cheat puzzles', () => {
+  assert.match(html, /id="lock-gate"/);
+  assert.match(html, /role="dialog"/);
+  assert.match(html, /aria-modal="true"/);
+  assert.match(html, /id="lock-gate-skip"/);
+  assert.match(html, /id="gate-skip-inline"/);
+  assert.match(html, /id="gate-terminal-output"/);
+  assert.match(html, /id="gate-puzzle-tiles"/);
+  assert.match(html, /id="gate-success"/);
+  assert.match(html, /id="gate-countdown-bar"/);
+
+  const skillKeys = [...html.matchAll(/class="gate-skill" data-skill="([^"]+)"/g)].map((match) => match[1]);
+  assert.deepEqual(skillKeys, ['python', 'abap', 'sql', 'javascript', 'go', 'rust', 'java', 'excel', 'linux']);
+  assert.deepEqual(skillKeys, Object.keys(LOCK_CHALLENGES));
+
+  for (const [key, challenge] of Object.entries(LOCK_CHALLENGES)) {
+    assert.ok(challenge.label && challenge.success, `${key} is missing display copy`);
+    assert.ok(challenge.answers.length > 0, `${key} has no accepted answers`);
+    assert.ok(challenge.hints.length >= 2, `${key} needs at least two hints`);
+    assert.match(challenge.cheat, /^[A-Z]{3,}$/, `${key} cheat code must be uppercase letters`);
+    assert.ok(challenge.clue.length > 10, `${key} is missing a puzzle clue`);
+  }
+});
+
+test('lock gate normalizes answers, cheat codes, and quote noise', () => {
+  assert.equal(normalizeAnswer('  `VLOOKUP`. '), 'vlookup');
+  assert.equal(normalizeAnswer('=vlookup'), 'vlookup');
+  assert.equal(normalizeAnswer('  SORTED   TABLE. '), 'sorted table');
+  assert.equal(normalizeAnswer('4'), '4');
+
+  for (const challenge of Object.values(LOCK_CHALLENGES)) {
+    assert.equal(normalizeAnswer(challenge.cheat.toLowerCase()), normalizeAnswer(challenge.cheat));
+    assert.ok(challenge.answers.some((answer) => normalizeAnswer(answer).length > 0));
+  }
+});
+
+test('lock gate opens after the intro, remembers the session, and offers a bypass', () => {
+  const gate = fs.readFileSync(path.join(ROOT, 'js', 'lockgate.js'), 'utf8');
+  assert.match(gate, /export function initLockGate/);
+  assert.match(gate, /mamun_gate_passed/);
+  assert.match(gate, /get\('gate'\) === 'off'/);
+  assert.match(gate, /sessionSet\(PASS_KEY, 'true'\)/);
+  assert.match(gate, /let remaining = 3/);
+  assert.match(gate, /UNLOCKING PIPELINE IN/);
+
+  const main = fs.readFileSync(path.join(ROOT, 'js', 'main.js'), 'utf8');
+  assert.match(main, /initLockGate/);
+  assert.match(main, /lockGate\.open\(\)/);
+
+  const css = fs.readFileSync(path.join(ROOT, 'css', 'style.css'), 'utf8');
+  assert.match(css, /\.lock-gate\[hidden\]\s*\{[^}]*display:\s*none/s);
+  assert.match(css, /body\.gate-open\s*\{[^}]*overflow:\s*hidden/s);
+  assert.match(css, /\.gate-caret/);
+
+  const bundle = fs.readFileSync(path.join(ROOT, 'js', 'app.bundle.js'), 'utf8');
+  assert.match(bundle, /gate-skill/);
+  assert.match(bundle, /mamun_gate_passed/);
 });
 
 test('index.html loads the classic bundle so opening from disk works', () => {

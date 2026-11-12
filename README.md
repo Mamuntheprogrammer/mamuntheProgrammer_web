@@ -11,6 +11,7 @@ The site is a **static portfolio** designed for **GitHub Pages**: semantic HTML,
 ## Highlights
 
 - **Desktop 3D pipeline** — scroll flies the camera through a Three.js pipeline tunnel with six stations.
+- **Post-intro lock gate** — a playful animated padlock challenge with nine expertise paths (Python, ABAP, SQL, JavaScript, Go, Rust, Java, Excel, Linux), a typing terminal, free hints, and a letter-rebuild puzzle that reveals a cheat code. Passing shows a success message and a three-second countdown before the portfolio appears. It is always skippable.
 - **Mobile-first classic layout** — phones and touch tablets automatically use normal document scrolling, so long sections (especially projects) remain easy to reach.
 - **Interactive domain console** — Python, SAP, Data, and AI tabs swap the live refinery view, hero bio, process labels, and telemetry.
 - **Portrait lightbox** — click the round portrait for a larger, accessible image view.
@@ -82,6 +83,7 @@ js/projects.js          GitHub API + static fallback rendering
 js/command.js           SAP command bar and Zen of Python modal
 js/icons.js             Hand-drawn SVG line icons
 js/intro.js             Home-page plotter intro animation
+js/lockgate.js          Post-intro lock gate, challenge bank, terminal, puzzle
 js/utils/               Command parser, repo filter, spine math, storage, viewport
 data/projects.json      Offline/static repository fallback
 assets/EM00013923.html         Desktop data-analysis dashboard (iframe)
@@ -103,6 +105,7 @@ tests/                  Node test-runner checks for logic, markup, and assets
 - **Resume download**: replace `assets/Md_Abdullah_Al_Mamun_Resume.pdf` with your latest PDF (keep the filename or update the download button in `#section-06-report`).
 - **Contact links and email**: `#section-06-report` (`data-email` on `#contact-email-val`).
 - **Fallback repositories**: `data/projects.json`.
+- **Lock gate challenges**: `LOCK_CHALLENGES` in `js/lockgate.js` (questions, accepted answers, hints, cheat codes, success copy). Rebuild the bundle after editing.
 - **Colors / themes**: CSS custom properties at the top of `css/style.css` (dark and `[data-theme="paper"]`).
 
 Replace `assets/profile.jpg` and regenerate `assets/social-preview.jpg` when updating the portrait. Keep the social preview at 1200×630 for best results.
@@ -117,13 +120,14 @@ No dependencies are required — Node's built-in test runner is used:
 npm test
 ```
 
-The suite checks command parsing, repository filtering, spine math, unresolved JavaScript imports, missing local assets, the vendored Three.js exports, the static projects fallback, six-station markup, the MamunTheProgrammer wordmark, tabbed domain controls, modal markup, the animated intro, the resume download, and the prebuilt bundle.
+The suite checks command parsing, repository filtering, spine math, unresolved JavaScript imports, missing local assets, the vendored Three.js exports, the static projects fallback, six-station markup, the MamunTheProgrammer wordmark, tabbed domain controls, modal markup, the animated intro, the lock gate challenge bank and answer normalization, the resume download, and the prebuilt bundle.
 
 ---
 
 ## Notes
 
 - The intro name animation draws on every page load. Use **[SKIP INTRO]** to bypass it, or enable `prefers-reduced-motion` in your OS.
+- The lock gate appears after the intro once per browser session. Use **[CONTINUE AS VISITOR]**, `Escape`, or the inline skip to bypass it; add `?gate=off` to the URL for demos and automated screenshots. The pass is stored in `sessionStorage`, so a new tab or cleared session shows the challenge again. This is playful theatre, not real security.
 - The 3D scene is intentionally disabled on compact/touch viewports, for `prefers-reduced-motion` users, and when `index.html` is opened via `file://`. Use the **VIEW: CLASSIC / 3D REVEAL** toggle on desktop HTTP to switch.
 - Direct `file://` opening uses the classic layout. Self-hosted fonts fall back because browsers block font requests from local files.
 - Live GitHub API calls are unauthenticated and subject to GitHub's rate limit (60 requests/hour per IP). The static fallback keeps the section usable regardless.
