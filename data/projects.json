@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Excel_Merger_Desktop_Application-",
+    "description": "Python GUI application built with Tkinter that automatically merges multiple Excel files into a consolidated workbook in seconds.",
+    "language": "Python",
+    "html_url": "https://github.com/Mamuntheprogrammer/Excel_Merger_Desktop_Application-",
+    "stargazers_count": 0,
+    "featured": true,
+    "tags": ["Automation", "Python", "Tkinter", "Data Processing"]
+  },
+  {
+    "name": "Excel_to_sql",
+    "description": "Desktop GUI tool (Excel2SQL) to ingest messy spreadsheets, parse schemas, and query workbook data directly with relational SQL.",
+    "language": "Python",
+    "html_url": "https://github.com/Mamuntheprogrammer/Excel_to_sql",
+    "stargazers_count": 2,
+    "featured": true,
+    "tags": ["SQL", "Python", "Data Pipeline", "Database"]
+  },
+  {
+    "name": "PantryShop_Desktop_Version",
+    "description": "Desktop CRM and inventory management application architected with modular MVC controllers, models, and views for shop management.",
+    "language": "Python",
+    "html_url": "https://github.com/Mamuntheprogrammer/PantryShop_Desktop_Version",
+    "stargazers_count": 1,
+    "featured": true,
+    "tags": ["Python", "MVC", "CRM", "Desktop"]
+  },
+  {
+    "name": "docktube",
+    "description": "Lightweight and user-friendly YouTube media downloader built with Python and yt-dlp to download single videos and entire playlists.",
+    "language": "Python",
+    "html_url": "https://github.com/Mamuntheprogrammer/docktube",
+    "stargazers_count": 1,
+    "featured": true,
+    "tags": ["Python", "yt-dlp", "CLI/GUI", "Automation"]
+  },
+  {
+    "name": "apl_contact",
+    "description": "Mobile contact and directory management application developed in Dart with Flutter, featuring clean UI and state management.",
+    "language": "Dart",
+    "html_url": "https://github.com/Mamuntheprogrammer/apl_contact",
+    "stargazers_count": 1,
+    "featured": true,
+    "tags": ["Flutter", "Dart", "Mobile", "Cross-Platform"]
+  },
+  {
+    "name": "Spring_Boot-Ordering_system-",
+    "description": "Digital ordering and transaction management system built with Spring Boot, REST APIs, and modern front-end integration.",
+    "language": "Java / JavaScript",
+    "html_url": "https://github.com/Mamuntheprogrammer/Spring_Boot-Ordering_system-",
+    "stargazers_count": 0,
+    "featured": true,
+    "tags": ["Backend", "Orders", "REST API", "Database"]
+  },
+  {
+    "name": "Django-RestApi-CRUD",
+    "description": "RESTful CRUD API service implemented with Django and Django REST Framework for robust backend data operations.",
+    "language": "Python",
+    "html_url": "https://github.com/Mamuntheprogrammer/Django-RestApi-CRUD",
+    "stargazers_count": 0,
+    "featured": false,
+    "tags": ["Django", "DRF", "REST", "API"]
+  },
+  {
+    "name": "DRF-JWT",
+    "description": "Authentication and authorization service implementing JSON Web Tokens (JWT) for secure Django REST Framework endpoints.",
+    "language": "Python",
+    "html_url": "https://github.com/Mamuntheprogrammer/DRF-JWT",
+    "stargazers_count": 0,
+    "featured": false,
+    "tags": ["Django", "JWT", "Security", "Auth"]
+  },
+  {
+    "name": "pygems",
+    "description": "Web platform for Python utilities and programming resources created by Mamun.",
+    "language": "JavaScript",
+    "html_url": "https://github.com/Mamuntheprogrammer/pygems",
+    "stargazers_count": 0,
+    "featured": false,
+    "tags": ["Web", "FullStack", "Resources"]
+  }
+]

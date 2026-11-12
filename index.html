@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Md Abdullah Al Mamun - The Pipeline 3D Portfolio</title>
+    <meta name="description" content="Personal portfolio of Md Abdullah Al Mamun (Mamuntheprogrammer) — I move data from messy to meaningful. Featuring Python, SAP (ABAP / SD / MM), Data, Web, Agentic AI, Flutter, and porbobd.com." />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://mamuntheprogrammer.github.io/" />
+    <meta property="og:title" content="Md Abdullah Al Mamun - The Pipeline 3D Portfolio" />
+    <meta property="og:description" content="I move data from messy to meaningful. Interactive 3D scroll-reveal portfolio spanning Python, SAP, Data Analysis, Web, Agentic AI, and Flutter." />
+    <meta property="og:image" content="./assets/profile.jpg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Md Abdullah Al Mamun - The Pipeline 3D Portfolio" />
+    <meta property="twitter:description" content="I move data from messy to meaningful. Interactive 3D scroll-reveal portfolio spanning Python, SAP, Data Analysis, Web, Agentic AI, and Flutter." />
+    <meta property="twitter:image" content="./assets/profile.jpg" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body>
+    <!-- ====================================================================
+         INTRO SCREEN (First Load Only; Skip via Button, Session, or Reduced-Motion)
+         ==================================================================== -->
+    <aside id="intro-overlay" aria-label="Introductory animation" role="region">
+      <button id="intro-skip-btn" class="intro-skip-btn" type="button" aria-label="Skip introductory handwriting animation">
+        [SKIP INTRO]
+      </button>
+
+      <div class="intro-stage">
+        <svg class="intro-name-svg" viewBox="0 0 920 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Md Abdullah Al Mamun">
+          <g stroke="#5eead4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path class="plotter-path" d="M 40 140 L 40 40 L 75 105 L 110 40 L 110 140" />
+            <path class="plotter-path" d="M 155 85 C 135 85 125 100 125 115 C 125 130 135 140 155 140 L 155 50" />
+            <circle class="plotter-path" cx="172" cy="140" r="2.5" fill="#5eead4" />
+            <path class="plotter-path" d="M 215 140 L 245 40 L 275 140 M 225 108 L 265 108" />
+            <path class="plotter-path" d="M 290 40 L 290 140 C 305 140 320 130 320 115 C 320 100 305 90 290 90" />
+            <path class="plotter-path" d="M 355 90 C 335 90 325 105 325 115 C 325 130 335 140 355 140 L 355 50" />
+            <path class="plotter-path" d="M 375 90 L 375 130 C 375 140 395 140 395 130 L 395 90 L 395 140" />
+            <path class="plotter-path" d="M 415 40 L 415 140" />
+            <path class="plotter-path" d="M 432 40 L 432 140" />
+            <path class="plotter-path" d="M 470 95 C 450 95 442 105 442 118 C 442 132 452 140 470 140 L 470 90 L 470 140" />
+            <path class="plotter-path" d="M 490 40 L 490 140 M 490 105 C 502 92 522 92 522 110 L 522 140" />
+            <path class="plotter-path" d="M 555 140 L 575 60 L 595 140 M 562 112 L 588 112" />
+            <path class="plotter-path" d="M 610 50 L 610 140" />
+            <path class="plotter-path" d="M 650 140 L 650 60 L 678 110 L 706 60 L 706 140" />
+            <path class="plotter-path" d="M 740 95 C 722 95 715 105 715 118 C 715 132 724 140 740 140 L 740 90 L 740 140" />
+            <path class="plotter-path" d="M 760 90 L 760 140 M 760 105 C 770 92 785 92 785 110 L 785 140 M 785 105 C 795 92 810 92 810 110 L 810 140" />
+            <path class="plotter-path" d="M 830 90 L 830 130 C 830 140 850 140 850 130 L 850 90 L 850 140" />
+            <path class="plotter-path" d="M 870 90 L 870 140 M 870 105 C 880 92 900 92 900 110 L 900 140 C 900 160 880 175 840 180" />
+          </g>
+          <g class="plotter-fill" fill="#5eead4" fill-opacity="0.12" style="opacity: 0;">
+            <text x="35" y="140" font-family="'JetBrains Mono', monospace" font-size="64" font-weight="700">Md Abdullah Al Mamun</text>
+          </g>
+        </svg>
+
+        <p style="font-family: var(--font-mono); font-size: 0.84rem; color: var(--text-muted); text-align: center; letter-spacing: 0.05em;">
+          INITIALIZING 3D SPATIAL PIPELINE <span style="color: var(--line-mint)">[SCROLL TO FLY THROUGH NODES 00 ➔ 06]</span>...
+        </p>
+      </div>
+    </aside>
+
+    <!-- ====================================================================
+         TOP HUD HEADER & SAP TRANSACTION COMMAND BAR
+         ==================================================================== -->
+    <header class="site-header">
+      <div class="header-container">
+        <a href="#section-00-source" class="header-brand" aria-label="The Pipeline - Md Abdullah Al Mamun">
+          <img src="./assets/profile.jpg" alt="Md Abdullah Al Mamun" class="header-avatar-mini" />
+          <span>MAMUN<span style="color: var(--line-mint)">.DEV</span></span>
+        </a>
+
+        <!-- SAP-style Command Bar -->
+        <div class="sap-command-bar" role="search" aria-label="SAP Transaction Command Bar">
+          <span class="command-prefix">OK-CODE:</span>
+          <input
+            type="text"
+            id="sap-command-input"
+            class="command-input"
+            placeholder="/nSE38, /nPORBO, /nPROJ, help"
+            autocomplete="off"
+            spellcheck="false"
+            aria-label="Enter SAP transaction code or shortcut"
+          />
+          <span class="command-hotkey-badge" title="Press forward slash to focus">/</span>
+        </div>
+
+        <!-- Controls: 3D Reveal vs Classic Toggle & Theme Toggle -->
+        <div class="header-actions">
+          <button id="toggle-3d-btn" class="btn-icon" type="button" aria-pressed="true" title="Toggle 3D Z-Axis Scroll Reveal vs Classic Scroll">
+            VIEW: 3D REVEAL
+          </button>
+          <button id="toggle-theme-btn" class="btn-icon" type="button" title="Toggle Blueprint Dark vs Paper theme">
+            THEME: DARK
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Floating Command Feedback Banner -->
+    <div id="command-feedback" class="command-feedback" role="status" aria-live="polite"></div>
+
+    <!-- ====================================================================
+         ONE-PAGE 3D SPATIAL VIEWPORT (Fixed Stage Revealed by Scroll)
+         ==================================================================== -->
+    <div id="spatial-viewport">
+      <!-- 2D Blueprint Perspective Tunnel Rings Fallback -->
+      <div id="tunnel-2d-fallback" aria-hidden="true">
+        <svg viewBox="0 0 1440 900" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+          <g stroke="#5eead4" stroke-opacity="0.14" fill="none" stroke-width="1">
+            <polygon points="720,80 1280,220 1280,680 720,820 160,680 160,220" />
+            <polygon points="720,160 1140,270 1140,630 720,740 300,630 300,270" stroke-dasharray="6 4" />
+            <polygon points="720,240 1000,320 1000,580 720,660 440,580 440,320" />
+            <line x1="160" y1="220" x2="580" y2="380" />
+            <line x1="1280" y1="220" x2="860" y2="380" />
+            <line x1="160" y1="680" x2="580" y2="520" />
+            <line x1="1280" y1="680" x2="860" y2="520" />
+          </g>
+        </svg>
+      </div>
+
+      <!-- Full-Viewport 3D WebGL Pipeline Tunnel Canvas -->
+      <div id="tunnel-canvas-container" aria-hidden="true"></div>
+
+      <!-- 3D Z-Axis Stage holding all 7 Stations -->
+      <main id="spatial-stage">
+
+        <!-- ================================================================
+             STATION 00: SOURCE (Hero + Round Portrait + Live Refinery)
+             ================================================================ -->
+        <section id="section-00-source" class="spatial-station is-visible is-interactive" aria-label="00 Source Hero">
+          <div class="station-frame">
+            <div class="station-top-bar">
+              <div class="station-node-badge">
+                <span class="station-node-number">[NODE 00]</span>
+                <span>SOURCE // IDENTITY & REFINERY</span>
+              </div>
+              <span class="technical-tag">SCROLL TO FLY THROUGH 3D PIPELINE ⇣</span>
+            </div>
+
+            <div class="hero-spatial-grid">
+              <!-- Left Column: Round Portrait + Identity + Venture Teaser -->
+              <div>
+                <div class="hero-identity-row">
+                  <!-- Round Portrait Image with Rotating HUD Ring -->
+                  <div class="portrait-round-shell">
+                    <svg class="portrait-hud-ring" viewBox="0 0 160 160" fill="none" aria-hidden="true">
+                      <circle cx="80" cy="80" r="76" stroke="#5eead4" stroke-width="1.5" stroke-dasharray="14 8 4 8" stroke-opacity="0.7" />
+                      <circle cx="80" cy="80" r="70" stroke="#fbbf24" stroke-width="1" stroke-dasharray="6 18" stroke-opacity="0.5" />
+                      <circle cx="80" cy="4" r="3" fill="#fbbf24" />
+                      <circle cx="156" cy="80" r="2.5" fill="#5eead4" />
+                      <circle cx="4" cy="80" r="2.5" fill="#5eead4" />
+                    </svg>
+                    <img
+                      src="./assets/profile.jpg"
+                      alt="Md Abdullah Al Mamun portrait"
+                      class="portrait-round-img"
+                    />
+                    <span class="portrait-status-pill">● DHAKA, BD</span>
+                  </div>
+
+                  <div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: center; margin-bottom: 0.35rem;">
+                      <span class="technical-tag">@Mamuntheprogrammer</span>
+                      <span class="technical-tag technical-tag-amber">TECHNO-FUNCTIONAL</span>
+                    </div>
+                    <h1 class="hero-name">Md Abdullah Al Mamun</h1>
+                    <p class="hero-tagline">"I move data from messy to meaningful."</p>
+                  </div>
+                </div>
+
+                <p class="hero-bio" style="margin-top: 0.85rem;">
+                  Architecting end-to-end data pipelines, enterprise SAP workflows (ABAP technical engineering + SD &amp; MM functional processes), Python automation suites, full-stack web platforms, agentic AI loops, and Flutter mobile apps.
+                </p>
+
+                <!-- Special Venture Banner: porbobd.com -->
+                <div class="porbobd-hero-banner">
+                  <div>
+                    <span class="technical-tag technical-tag-amber" style="margin-right: 0.4rem;">★ NEXT VENTURE</span>
+                    <strong style="font-family: var(--font-mono); color: var(--text-primary); font-size: 0.9rem;">porbobd.com</strong>
+                    <span style="font-size: 0.82rem; color: var(--text-muted); margin-left: 0.35rem;">
+                      — Currently in active development. Something special is coming...
+                    </span>
+                  </div>
+                  <a href="#section-02-sap-venture" class="technical-tag" style="text-decoration: none;">INSPECT ➔</a>
+                </div>
+
+                <div class="hero-cta-group">
+                  <a href="#section-01-extract" class="btn-primary">
+                    <span>ENTER 3D PIPELINE</span>
+                    <span>⇣</span>
+                  </a>
+                  <a href="https://www.youtube.com/@MamunTheProgrammer" target="_blank" rel="noopener noreferrer" class="btn-secondary btn-youtube">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                    </svg>
+                    <span>YOUTUBE</span>
+                  </a>
+                  <a href="https://github.com/Mamuntheprogrammer" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+                    <span>GITHUB</span>
+                  </a>
+                  <a href="#section-06-report" class="btn-secondary">
+                    <span>CONTACT</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Right Column: Unique Interactive Messy-to-Meaningful Refinery Engine -->
+              <div class="refinery-interactive-card" aria-label="Interactive Data Refinery Simulator">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--line-mint);">
+                    PIPELINE_REFINERY.ENGINE // LIVE
+                  </span>
+                  <span class="technical-tag technical-tag-amber" style="font-size: 0.65rem;">INTERACTIVE</span>
+                </div>
+
+                <!-- Interactive SVG Isometric Refinery Diagram -->
+                <div class="refinery-visualizer-stage">
+                  <svg id="refinery-svg-stream" class="refinery-svg-diagram" viewBox="0 0 420 200" fill="none">
+                    <!-- Left: Messy Raw Entropy Zone -->
+                    <text x="14" y="24" fill="#fbbf24" font-family="monospace" font-size="9" font-weight="bold">01. MESSY INPUT</text>
+                    <g stroke="#fbbf24" stroke-width="1.5" opacity="0.85">
+                      <path d="M 14 55 Q 35 25, 52 75 T 88 50 T 122 90" fill="none" stroke-dasharray="4 3">
+                        <animate attributeName="stroke-dashoffset" from="28" to="0" dur="1.4s" repeatCount="indefinite" />
+                      </path>
+                      <path d="M 14 115 Q 42 155, 68 95 T 105 135 T 126 105" fill="none" stroke="#f87171" stroke-dasharray="3 3">
+                        <animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.1s" repeatCount="indefinite" />
+                      </path>
+                      <rect x="24" y="65" width="9" height="9" transform="rotate(22 24 65)" />
+                      <polygon points="62,42 70,54 55,56" />
+                      <circle cx="45" cy="138" r="4" />
+                      <rect x="82" y="118" width="10" height="8" transform="rotate(-18 82 118)" />
+                    </g>
+
+                    <!-- Center: 3D Isometric Hexagonal Refinery Gate -->
+                    <text x="154" y="24" fill="#5eead4" font-family="monospace" font-size="9" font-weight="bold">02. REFINERY GATE</text>
+                    <g transform="translate(205, 105)">
+                      <polygon points="0,-58 50,-28 50,28 0,58 -50,28 -50,-28" stroke="#5eead4" stroke-width="2" fill="rgba(94,234,212,0.06)" />
+                      <polygon points="0,-40 35,-20 35,20 0,40 -35,20 -35,-20" stroke="#fbbf24" stroke-width="1.2" stroke-dasharray="4 3" fill="none">
+                        <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="12s" repeatCount="indefinite" />
+                      </polygon>
+                      <circle cx="0" cy="0" r="10" fill="#5eead4" fill-opacity="0.25" stroke="#5eead4" stroke-width="2" />
+                      <circle cx="0" cy="0" r="3.5" fill="#fbbf24" />
+                    </g>
+
+                    <!-- Right: Structured Clean Schema Lattice -->
+                    <text x="292" y="24" fill="#5eead4" font-family="monospace" font-size="9" font-weight="bold">03. MEANINGFUL SQL/SAP</text>
+                    <g stroke="#5eead4" stroke-width="1.5">
+                      <line x1="255" y1="80" x2="305" y2="80" stroke-dasharray="5 3">
+                        <animate attributeName="stroke-dashoffset" from="16" to="0" dur="0.9s" repeatCount="indefinite" />
+                      </line>
+                      <line x1="255" y1="105" x2="305" y2="105" stroke-dasharray="5 3">
+                        <animate attributeName="stroke-dashoffset" from="16" to="0" dur="0.9s" repeatCount="indefinite" />
+                      </line>
+                      <line x1="255" y1="130" x2="305" y2="130" stroke-dasharray="5 3">
+                        <animate attributeName="stroke-dashoffset" from="16" to="0" dur="0.9s" repeatCount="indefinite" />
+                      </line>
+                      <!-- Ordered DataFrame / Crystal Matrix -->
+                      <rect x="310" y="54" width="92" height="98" rx="4" fill="rgba(13,19,29,0.9)" stroke="#5eead4" stroke-width="1.6" />
+                      <line x1="310" y1="76" x2="402" y2="76" />
+                      <line x1="310" y1="100" x2="402" y2="100" />
+                      <line x1="310" y1="124" x2="402" y2="124" />
+                      <line x1="345" y1="54" x2="345" y2="152" stroke-opacity="0.4" />
+                      <circle cx="327" cy="65" r="2.5" fill="#fbbf24" stroke="none" />
+                      <circle cx="327" cy="88" r="2.5" fill="#5eead4" stroke="none" />
+                      <circle cx="327" cy="112" r="2.5" fill="#5eead4" stroke="none" />
+                      <circle cx="327" cy="136" r="2.5" fill="#5eead4" stroke="none" />
+                      <rect x="354" y="62" width="38" height="6" rx="2" fill="#5eead4" fill-opacity="0.5" stroke="none" />
+                      <rect x="354" y="85" width="32" height="6" rx="2" fill="#5eead4" fill-opacity="0.35" stroke="none" />
+                      <rect x="354" y="109" width="40" height="6" rx="2" fill="#5eead4" fill-opacity="0.35" stroke="none" />
+                      <rect x="354" y="133" width="28" height="6" rx="2" fill="#5eead4" fill-opacity="0.35" stroke="none" />
+                    </g>
+                  </svg>
+                </div>
+
+                <!-- Interactive Domain Stream Selector -->
+                <div class="refinery-controls-row">
+                  <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
+                    <button type="button" class="filter-btn active" data-refinery-domain="python">PYTHON</button>
+                    <button type="button" class="filter-btn" data-refinery-domain="sap">SAP ERP</button>
+                    <button type="button" class="filter-btn" data-refinery-domain="data">SQL DATA</button>
+                    <button type="button" class="filter-btn" data-refinery-domain="ai">AGENTIC AI</button>
+                  </div>
+                  <button type="button" id="refinery-inject-btn" class="btn-primary" style="padding: 0.32rem 0.7rem; font-size: 0.72rem;">
+                    <span>⚡ INJECT MESSY DATA</span>
+                  </button>
+                </div>
+
+                <div id="refinery-telemetry-status" class="refinery-telemetry">
+                  <span>IN: <strong style="color:var(--packet-amber)">RAW_EXCEL_BATCH (42 sheets)</strong></span>
+                  <span>➔</span>
+                  <span>OUT: <strong style="color:var(--line-mint)">CLEAN_SCHEMA: 100% MERGED</strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             STATION 01: EXTRACT ("What I Work With" — 6 Domain Stations)
+             ================================================================ -->
+        <section id="section-01-extract" class="spatial-station" aria-label="01 Extract Domains">
+          <div class="station-frame">
+            <div class="station-top-bar">
+              <div>
+                <div class="station-node-badge">
+                  <span class="station-node-number">[NODE 01]</span>
+                  <span>EXTRACT // 6 DOMAIN STATIONS</span>
+                </div>
+                <h2 class="station-title">What I Work With</h2>
+              </div>
+              <p class="station-subtitle">Six specialized stations unified by end-to-end process automation.</p>
+            </div>
+
+            <div class="stations-grid">
+              <!-- 1. Python -->
+              <article id="station-python" class="station-card">
+                <div class="station-header">
+                  <div class="station-icon-wrapper" data-icon="python"></div>
+                  <div class="station-title-group">
+                    <div class="station-category">CORE LANGUAGE</div>
+                    <h3 class="station-name">Python</h3>
+                  </div>
+                  <span class="technical-tag technical-tag-amber">AUTO</span>
+                </div>
+                <ul class="station-items-list">
+                  <li class="station-item">Automated ETL &amp; file-processing pipelines</li>
+                  <li class="station-item">Backend APIs with Django &amp; Flask</li>
+                  <li class="station-item">Data wrangling with Pandas &amp; NumPy</li>
+                  <li class="station-item">Desktop GUI applications (Tkinter &amp; custom tools)</li>
+                </ul>
+              </article>
+
+              <!-- 2. SAP Ecosystem -->
+              <article id="station-sap" class="station-card">
+                <div class="station-header">
+                  <div class="station-icon-wrapper" data-icon="sap"></div>
+                  <div class="station-title-group">
+                    <div class="station-category">TECHNO-FUNCTIONAL</div>
+                    <h3 class="station-name">SAP (ABAP / SD / MM)</h3>
+                  </div>
+                  <span class="technical-tag technical-tag-amber">AUTO</span>
+                </div>
+                <ul class="station-items-list">
+                  <li class="station-item">Technical: Custom ABAP reports, ALV grids, BAPIs &amp; enhancements</li>
+                  <li class="station-item">Functional SD: Order-to-Cash (O2C), pricing, billing &amp; delivery flows</li>
+                  <li class="station-item">Functional MM: Procure-to-Pay (P2P), PO release &amp; inventory management</li>
+                  <li class="station-item">Cross-module automation &amp; data dictionary modeling</li>
+                </ul>
+              </article>
+
+              <!-- 3. Data Analysis -->
+              <article id="station-data" class="station-card">
+                <div class="station-header">
+                  <div class="station-icon-wrapper" data-icon="data"></div>
+                  <div class="station-title-group">
+                    <div class="station-category">PIPELINES &amp; QUERIES</div>
+                    <h3 class="station-name">Data Analysis</h3>
+                  </div>
+                  <span class="technical-tag technical-tag-amber">AUTO</span>
+                </div>
+                <ul class="station-items-list">
+                  <li class="station-item">Ingesting messy multi-sheet workbooks into clean SQL schemas</li>
+                  <li class="station-item">Automated spreadsheet reconciliation &amp; anomaly detection</li>
+                  <li class="station-item">Relational &amp; NoSQL querying (SQL, MySQL, MongoDB)</li>
+                  <li class="station-item">Executive KPI reporting &amp; tabular normalization</li>
+                </ul>
+              </article>
+
+              <!-- 4. Web Development -->
+              <article id="station-web" class="station-card">
+                <div class="station-header">
+                  <div class="station-icon-wrapper" data-icon="web"></div>
+                  <div class="station-title-group">
+                    <div class="station-category">FULL STACK</div>
+                    <h3 class="station-name">Web Development</h3>
+                  </div>
+                  <span class="technical-tag technical-tag-amber">AUTO</span>
+                </div>
+                <ul class="station-items-list">
+                  <li class="station-item">Interactive front-ends with JavaScript &amp; React</li>
+                  <li class="station-item">Scalable backend services with Node.js / Express</li>
+                  <li class="station-item">Django REST Framework, JWT auth &amp; GraphQL APIs</li>
+                  <li class="station-item">Currently architecting <strong>porbobd.com</strong></li>
+                </ul>
+              </article>
+
+              <!-- 5. AI & Agentic Systems -->
+              <article id="station-ai" class="station-card">
+                <div class="station-header">
+                  <div class="station-icon-wrapper" data-icon="ai"></div>
+                  <div class="station-title-group">
+                    <div class="station-category">INTELLIGENCE</div>
+                    <h3 class="station-name">AI &amp; Agentic AI</h3>
+                  </div>
+                  <span class="technical-tag technical-tag-amber">AUTO</span>
+                </div>
+                <ul class="station-items-list">
+                  <li class="station-item">Agentic AI loops: autonomous <code>PLAN ➔ ACT ➔ OBSERVE</code> workflows</li>
+                  <li class="station-item">Machine Learning (ML) classification &amp; predictive modeling</li>
+                  <li class="station-item"><strong>Vibe Coding:</strong> AI-assisted velocity paired with strict human code review &amp; testing</li>
+                </ul>
+              </article>
+
+              <!-- 6. Mobile Development -->
+              <article id="station-flutter" class="station-card">
+                <div class="station-header">
+                  <div class="station-icon-wrapper" data-icon="flutter"></div>
+                  <div class="station-title-group">
+                    <div class="station-category">CROSS-PLATFORM</div>
+                    <h3 class="station-name">Flutter &amp; Dart</h3>
+                  </div>
+                  <span class="technical-tag technical-tag-amber">AUTO</span>
+                </div>
+                <ul class="station-items-list">
+                  <li class="station-item">Native-grade mobile apps built with Flutter &amp; Dart</li>
+                  <li class="station-item">Clean widget architecture &amp; reactive state management</li>
+                  <li class="station-item">Featured apps: <code>apl_contact</code> &amp; <code>Route_9</code></li>
+                  <li class="station-item">REST API &amp; offline local storage integration</li>
+                </ul>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             STATION 02: SAP TECHNO-FUNCTIONAL BRIDGE & PORBOBD.COM VENTURE
+             ================================================================ -->
+        <section id="section-02-sap-venture" class="spatial-station" aria-label="02 SAP Techno-Functional and Ventures">
+          <div class="station-frame">
+            <div class="station-top-bar">
+              <div>
+                <div class="station-node-badge">
+                  <span class="station-node-number">[NODE 02]</span>
+                  <span>BRIDGE // SAP TECHNO-FUNCTIONAL &amp; PORBOBD.COM</span>
+                </div>
+                <h2 class="station-title">Enterprise SAP Bridge &amp; Active Venture</h2>
+              </div>
+              <span class="technical-tag technical-tag-amber">TECHNO ⟷ FUNCTIONAL</span>
+            </div>
+
+            <div class="sap-venture-layout">
+              <!-- SAP Split Card -->
+              <div class="sap-split-container">
+                <div id="station-sap-abap" class="sap-wing">
+                  <div class="sap-wing-badge">[TECHNICAL SIDE] SAP ABAP (/nSE38)</div>
+                  <ul class="station-items-list">
+                    <li class="station-item">Interactive ALV reports, OOP ABAP &amp; custom Data Dictionary (DDIC) tables</li>
+                    <li class="station-item">BAPI &amp; RFC integrations (automated Sales Order &amp; Purchase Order creation)</li>
+                    <li class="station-item">User Exits, Customer Enhancements, BADIs &amp; SmartForms print outputs</li>
+                    <li class="station-item">Batch data upload utilities (BDC / LSMW) eliminating manual entry</li>
+                  </ul>
+                </div>
+
+                <div class="sap-bridge">
+                  <span class="sap-bridge-tag">⇄ AUTOMATION</span>
+                  <svg width="48" height="24" viewBox="0 0 48 24" fill="none" stroke="#5eead4" stroke-width="2">
+                    <path d="M 4 12 L 44 12" stroke-dasharray="4 3" />
+                    <circle cx="24" cy="12" r="4" fill="#fbbf24" stroke="none" />
+                  </svg>
+                </div>
+
+                <div class="sap-wing">
+                  <div id="station-sap-sd" class="sap-wing-badge">[FUNCTIONAL SIDE] SAP SD (/nVA01) &amp; MM (/nME21N)</div>
+                  <ul class="station-items-list">
+                    <li class="station-item"><strong>SD (Sales &amp; Distribution):</strong> End-to-end Order-to-Cash (O2C), pricing procedures, outbound delivery &amp; billing document chains</li>
+                    <li id="station-sap-mm" class="station-item"><strong>MM (Materials Management):</strong> Procure-to-Pay (P2P), Purchase Requisitions, PO release strategies, Goods Receipt (MIGO) &amp; invoice verification (MIRO)</li>
+                    <li class="station-item">Translating functional business rules directly into clean technical ABAP specs</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Special Venture Spotlight: porbobd.com & YouTube Channel -->
+              <div id="porbobd-spotlight" class="porbobd-spotlight-card">
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem;">
+                  <div style="display: flex; align-items: center; gap: 0.6rem;">
+                    <span class="technical-tag technical-tag-amber">★ SPECIAL VENTURE IN PROGRESS</span>
+                    <h3 style="font-size: 1.2rem; color: var(--text-primary);">porbobd.com</h3>
+                  </div>
+                  <span class="technical-tag">STATUS: BUILDING SOMETHING SPECIAL</span>
+                </div>
+                <p style="font-size: 0.88rem; color: var(--text-muted); line-height: 1.55;">
+                  Currently engineering <strong>porbobd.com</strong> — a next-generation platform crafted in Dhaka with modern web architecture, intelligent data workflows, and user-first automation. Stay tuned as something special prepares to launch.
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.65rem; align-items: center;">
+                  <a href="https://porbobd.com" target="_blank" rel="noopener noreferrer" class="btn-primary" style="padding: 0.4rem 0.85rem; font-size: 0.76rem;">
+                    <span>VISIT PORBOBD.COM ↗</span>
+                  </a>
+                  <a href="https://www.youtube.com/@MamunTheProgrammer" target="_blank" rel="noopener noreferrer" class="btn-secondary btn-youtube" style="padding: 0.4rem 0.85rem; font-size: 0.76rem;">
+                    <span>WATCH UPDATES ON YOUTUBE (@MamunTheProgrammer) ↗</span>
+                  </a>
+                  <a href="https://pygems.com" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="padding: 0.4rem 0.85rem; font-size: 0.76rem;">
+                    <span>PYGEMS.COM ↗</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             STATION 03: TRANSFORM ("Toolbelt" Styled DataFrame)
+             ================================================================ -->
+        <section id="section-02-transform" class="spatial-station" aria-label="03 Transform Toolbelt DataFrame">
+          <div class="station-frame">
+            <div class="station-top-bar">
+              <div>
+                <div class="station-node-badge">
+                  <span class="station-node-number">[NODE 03]</span>
+                  <span>TRANSFORM // TOOLBELT DATAFRAME (/nSE16)</span>
+                </div>
+                <h2 class="station-title">Toolbelt &amp; Stack Schema</h2>
+              </div>
+              <span class="technical-tag">df_skills.head(8) // ZERO FAKE PERCENTAGES</span>
+            </div>
+
+            <div class="dataframe-wrapper">
+              <div class="dataframe-header-bar">
+                <span>>>> df_skills = pd.DataFrame(mamun_stack).set_index('domain')</span>
+                <span>SHAPE: (8, 4) • DTYPE: VERIFIED</span>
+              </div>
+              <div class="dataframe-table-container">
+                <table class="dataframe-table" aria-label="Skills and competencies DataFrame">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>DOMAIN</th>
+                      <th>CORE TECHNOLOGIES &amp; STACK</th>
+                      <th>MODE</th>
+                      <th>PRODUCTION APPLICATION</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>0</td>
+                      <td style="color:var(--text-primary); font-weight:600;">Python</td>
+                      <td>Python, Django, Flask, Pandas, Tkinter, yt-dlp</td>
+                      <td><span class="technical-tag technical-tag-amber">AUTOMATED</span></td>
+                      <td>ETL scripts, REST backends, desktop GUI tools &amp; file mergers.</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td style="color:var(--text-primary); font-weight:600;">SAP ERP</td>
+                      <td>ABAP (Reports, BAPIs, ALV, Exits), SD (O2C), MM (P2P)</td>
+                      <td><span class="technical-tag technical-tag-amber">TECHNO-FUNC</span></td>
+                      <td>Bridging SD/MM business configurations with custom ABAP logic.</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td style="color:var(--text-primary); font-weight:600;">Data &amp; SQL</td>
+                      <td>SQL, MySQL, MongoDB, Excel2SQL, Schema Normalization</td>
+                      <td><span class="technical-tag technical-tag-amber">AUTOMATED</span></td>
+                      <td>Transforming raw unstructured spreadsheets into queryable tables.</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td style="color:var(--text-primary); font-weight:600;">Web Dev</td>
+                      <td>JavaScript, React, Node.js/Express, GraphQL, Django REST</td>
+                      <td><span class="technical-tag">FULL-STACK</span></td>
+                      <td>Building <code>porbobd.com</code>, <code>pygems</code>, and responsive web apps.</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td style="color:var(--text-primary); font-weight:600;">AI &amp; Agents</td>
+                      <td>Agentic AI (Plan-Act-Observe), Machine Learning (ML), LLMs</td>
+                      <td><span class="technical-tag technical-tag-amber">AUTONOMOUS</span></td>
+                      <td>Multi-step task automation, intelligent parsing &amp; model pipelines.</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td style="color:var(--text-primary); font-weight:600;">Mobile</td>
+                      <td>Flutter, Dart, Cross-Platform UI &amp; State Management</td>
+                      <td><span class="technical-tag">NATIVE-UI</span></td>
+                      <td>Mobile directory &amp; utility apps (<code>apl_contact</code>, <code>Route_9</code>).</td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td style="color:var(--text-primary); font-weight:600;">Automation</td>
+                      <td>Batch Processing, Cross-System Pipelines, GUI Scripting</td>
+                      <td><span class="technical-tag technical-tag-amber">CORE THEME</span></td>
+                      <td>Replacing repetitive manual workflows with deterministic code.</td>
+                    </tr>
+                    <tr>
+                      <td>7</td>
+                      <td style="color:var(--text-primary); font-weight:600;">Vibe Coding</td>
+                      <td>AI-Assisted Rapid Prototyping + Human Engineering Review</td>
+                      <td><span class="technical-tag">VERIFIED</span></td>
+                      <td>AI accelerates scaffolding; every line is reviewed and tested before ship.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             STATION 04: LOAD ("Projects" Live GitHub Records)
+             ================================================================ -->
+        <section id="section-03-load" class="spatial-station" aria-label="04 Load GitHub Projects">
+          <div class="station-frame">
+            <div class="station-top-bar">
+              <div>
+                <div class="station-node-badge">
+                  <span class="station-node-number">[NODE 04]</span>
+                  <span>LOAD // LIVE GITHUB REPOSITORIES (/nPROJ)</span>
+                </div>
+                <h2 class="station-title">Open-Source Projects &amp; Systems</h2>
+              </div>
+              <span id="projects-count-badge" class="technical-tag">LOADING...</span>
+            </div>
+
+            <div class="projects-filter-bar">
+              <button class="filter-btn active" data-filter="all" type="button">ALL RECORDS</button>
+              <button class="filter-btn" data-filter="featured" type="button">★ FEATURED</button>
+              <button class="filter-btn" data-filter="python" type="button">PYTHON</button>
+              <button class="filter-btn" data-filter="automation" type="button">AUTOMATION</button>
+              <button class="filter-btn" data-filter="mobile" type="button">MOBILE (FLUTTER/DART)</button>
+            </div>
+
+            <div id="projects-grid-container" class="projects-grid" aria-live="polite"></div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             STATION 05: AUTOMATE ("Things I Stopped Doing By Hand")
+             ================================================================ -->
+        <section id="section-04-automate" class="spatial-station" aria-label="05 Automate Before and After">
+          <div class="station-frame">
+            <div class="station-top-bar">
+              <div>
+                <div class="station-node-badge">
+                  <span class="station-node-number">[NODE 05]</span>
+                  <span>AUTOMATE // BEFORE ➔ AFTER TRANSFORMATIONS</span>
+                </div>
+                <h2 class="station-title">Things I Stopped Doing By Hand</h2>
+              </div>
+              <span class="technical-tag technical-tag-amber">MANUAL ➔ PIPELINE</span>
+            </div>
+
+            <div class="automate-grid">
+              <!-- 1. Excel Merger -->
+              <article class="automate-card">
+                <div class="automate-card-title">
+                  <span data-icon="automation" style="width:20px; height:20px;"></span>
+                  <span>Multi-Workbook Excel Consolidation</span>
+                </div>
+                <div class="before-after-flow">
+                  <div class="flow-box before">
+                    <span class="flow-label">BEFORE: MANUAL COPY-PASTE ACROSS FILES</span>
+                    <p class="flow-text">Opening dozens of fragmented Excel files one by one, aligning mismatched columns, and manually fixing broken rows.</p>
+                  </div>
+                  <div class="flow-box after">
+                    <span class="flow-label">AFTER: <code>Excel_Merger_Desktop_Application-</code></span>
+                    <p class="flow-text">Python Tkinter GUI tool that scans entire folders, normalizes headers, and merges all sheets into a clean master file automatically.</p>
+                  </div>
+                </div>
+              </article>
+
+              <!-- 2. Excel to SQL -->
+              <article class="automate-card">
+                <div class="automate-card-title">
+                  <span data-icon="data" style="width:20px; height:20px;"></span>
+                  <span>Spreadsheet to Relational SQL Engine</span>
+                </div>
+                <div class="before-after-flow">
+                  <div class="flow-box before">
+                    <span class="flow-label">BEFORE: MANUAL SCHEMA &amp; INSERT SCRIPTS</span>
+                    <p class="flow-text">Manually inspecting spreadsheet columns, writing CREATE TABLE boilerplate, and struggling with complex VLOOKUP filters.</p>
+                  </div>
+                  <div class="flow-box after">
+                    <span class="flow-label">AFTER: <code>Excel_to_sql (Excel2SQL)</code></span>
+                    <p class="flow-text">Desktop engine that ingests raw Excel workbooks, infers SQL schemas automatically, and runs relational SELECT joins on the fly.</p>
+                  </div>
+                </div>
+              </article>
+
+              <!-- 3. SAP ABAP / SD / MM Automation -->
+              <article class="automate-card">
+                <div class="automate-card-title">
+                  <span data-icon="sap" style="width:20px; height:20px;"></span>
+                  <span>SAP Order &amp; Procurement Batch Processing</span>
+                </div>
+                <div class="before-after-flow">
+                  <div class="flow-box before">
+                    <span class="flow-label">BEFORE: REPETITIVE /nVA01 &amp; /nME21N ENTRY</span>
+                    <p class="flow-text">Keying bulk sales orders and purchase requisitions line-by-line across SAP GUI screens and reconciling stock manually.</p>
+                  </div>
+                  <div class="flow-box after">
+                    <span class="flow-label">AFTER: ABAP BAPI &amp; ALV AUTOMATION PIPELINE</span>
+                    <p class="flow-text">Custom ABAP upload programs invoking BAPIs with pre-validation rules and interactive ALV exception logs for SD/MM teams.</p>
+                  </div>
+                </div>
+              </article>
+
+              <!-- 4. Agentic AI Workflow -->
+              <article class="automate-card">
+                <div class="automate-card-title">
+                  <span data-icon="agentic" style="width:20px; height:20px;"></span>
+                  <span>Agentic AI Triage &amp; Code Scaffolding</span>
+                </div>
+                <div class="before-after-flow">
+                  <div class="flow-box before">
+                    <span class="flow-label">BEFORE: REPETITIVE BOILERPLATE &amp; LOG PARSING</span>
+                    <p class="flow-text">Writing repetitive CRUD/data-mapping boilerplate by hand and manually tracing unstructured data anomalies.</p>
+                  </div>
+                  <div class="flow-box after">
+                    <span class="flow-label">AFTER: AGENTIC PLAN ➔ ACT ➔ OBSERVE LOOP</span>
+                    <p class="flow-text">Structured AI agent workflows that parse inputs, generate candidate schemas, run automated checks, and present verified diffs for human review.</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             STATION 06: REPORT ("Contact" SQL Terminal + YouTube + Ventures)
+             ================================================================ -->
+        <section id="section-06-report" class="spatial-station" aria-label="06 Report Contact">
+          <div class="station-frame">
+            <div class="station-top-bar">
+              <div>
+                <div class="station-node-badge">
+                  <span class="station-node-number">[NODE 06]</span>
+                  <span>REPORT // COMMUNICATION ENDPOINT (/nCONTACT)</span>
+                </div>
+                <h2 class="station-title">Connect &amp; Collaborate</h2>
+              </div>
+              <span class="technical-tag">DHAKA, BANGLADESH // ONLINE</span>
+            </div>
+
+            <div class="contact-sql-terminal">
+              <div class="terminal-titlebar">
+                <div class="terminal-dots">
+                  <span class="terminal-dot" style="background:#f87171;"></span>
+                  <span class="terminal-dot" style="background:#fbbf24;"></span>
+                  <span class="terminal-dot" style="background:#34d399;"></span>
+                </div>
+                <span>QUERY: SE16 // MAMUNTHEPROGRAMMER_ENDPOINTS</span>
+                <span>STATUS: 200 OK</span>
+              </div>
+
+              <div class="terminal-body">
+                <div class="sql-query-line">
+                  <span class="sql-keyword">SELECT</span> channel, endpoint, status <span class="sql-keyword">FROM</span> mamun_network <span class="sql-keyword">WHERE</span> active = <span style="color: var(--packet-amber);">TRUE</span>;
+                </div>
+
+                <div class="contact-channels-grid">
+                  <!-- 1. Direct Email -->
+                  <div class="contact-card-item">
+                    <span class="contact-card-label">DIRECT EMAIL</span>
+                    <a href="mailto:mamuntheprogrammer@gmail.com" id="contact-email-val" class="contact-card-val" data-email="mamuntheprogrammer@gmail.com">
+                      mamuntheprogrammer@gmail.com
+                    </a>
+                    <button id="copy-email-btn" class="btn-copy" type="button" aria-label="Copy email address to clipboard">
+                      <span>📋 COPY EMAIL</span>
+                    </button>
+                  </div>
+
+                  <!-- 2. YouTube Channel -->
+                  <div class="contact-card-item">
+                    <span class="contact-card-label">YOUTUBE CHANNEL (/nYT)</span>
+                    <a href="https://www.youtube.com/@MamunTheProgrammer" target="_blank" rel="noopener noreferrer" class="contact-card-val" style="color: #fca5a5;">
+                      youtube.com/@MamunTheProgrammer
+                    </a>
+                    <span class="technical-tag technical-tag-amber" style="width:fit-content;">VIDEO TUTORIALS &amp; TECH</span>
+                  </div>
+
+                  <!-- 3. Upcoming Venture: porbobd.com -->
+                  <div class="contact-card-item">
+                    <span class="contact-card-label">UPCOMING VENTURE (/nPORBO)</span>
+                    <a href="https://porbobd.com" target="_blank" rel="noopener noreferrer" class="contact-card-val" style="color: var(--packet-amber);">
+                      porbobd.com
+                    </a>
+                    <span class="technical-tag technical-tag-amber" style="width:fit-content;">SOMETHING SPECIAL COMING</span>
+                  </div>
+
+                  <!-- 4. GitHub -->
+                  <div class="contact-card-item">
+                    <span class="contact-card-label">GITHUB PROFILE</span>
+                    <a href="https://github.com/Mamuntheprogrammer" target="_blank" rel="noopener noreferrer" class="contact-card-val">
+                      github.com/Mamuntheprogrammer
+                    </a>
+                    <span class="technical-tag" style="width:fit-content;">OPEN SOURCE REPOS</span>
+                  </div>
+
+                  <!-- 5. LinkedIn -->
+                  <div class="contact-card-item">
+                    <span class="contact-card-label">LINKEDIN NETWORK</span>
+                    <a href="https://www.linkedin.com/in/mamuntheprogrammer/" target="_blank" rel="noopener noreferrer" class="contact-card-val">
+                      linkedin.com/in/mamuntheprogrammer
+                    </a>
+                    <span class="technical-tag" style="width:fit-content;">CONNECT PROFESSIONALLY</span>
+                  </div>
+
+                  <!-- 6. Resume PDF & PyGems -->
+                  <div class="contact-card-item">
+                    <span class="contact-card-label">RESUME / CV &amp; PYGEMS</span>
+                    <div style="display: flex; flex-direction: column; gap: 0.3rem;">
+                      <a href="https://pygems.com" target="_blank" rel="noopener noreferrer" class="contact-card-val">
+                        pygems.com
+                      </a>
+                      <span style="font-size: 0.75rem; color: var(--text-muted);">
+                        📄 Resume PDF: <strong style="color: var(--packet-amber);">Link Adding Soon</strong>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem; padding-top: 0.5rem; border-top: 1px dashed var(--border-subtle); font-size: 0.75rem; color: var(--text-subtle);">
+                  <span>Md Abdullah Al Mamun (@Mamuntheprogrammer) • Dhaka, Bangladesh</span>
+                  <span>Built with AI assistance, reviewed &amp; engineered by Mamun.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- ====================================================================
+         BOTTOM 3D PIPELINE SCRUBBER HUD DOCK
+         Allows instant 1-click flying between any of the 7 3D Stations
+         ==================================================================== -->
+    <nav class="pipeline-bottom-dock" aria-label="3D Pipeline Station Navigator">
+      <button type="button" id="dock-prev-btn" class="dock-nav-arrow" aria-label="Previous 3D Station" title="Previous Station">◀</button>
+
+      <button type="button" class="dock-step-btn active" data-step="0">
+        <span class="dock-step-num">00</span>
+        <span class="dock-step-label">SOURCE</span>
+      </button>
+      <button type="button" class="dock-step-btn" data-step="1">
+        <span class="dock-step-num">01</span>
+        <span class="dock-step-label">DOMAINS</span>
+      </button>
+      <button type="button" class="dock-step-btn" data-step="2">
+        <span class="dock-step-num">02</span>
+        <span class="dock-step-label">SAP &amp; PORBOBD</span>
+      </button>
+      <button type="button" class="dock-step-btn" data-step="3">
+        <span class="dock-step-num">03</span>
+        <span class="dock-step-label">TOOLBELT</span>
+      </button>
+      <button type="button" class="dock-step-btn" data-step="4">
+        <span class="dock-step-num">04</span>
+        <span class="dock-step-label">PROJECTS</span>
+      </button>
+      <button type="button" class="dock-step-btn" data-step="5">
+        <span class="dock-step-num">05</span>
+        <span class="dock-step-label">AUTOMATE</span>
+      </button>
+      <button type="button" class="dock-step-btn" data-step="6">
+        <span class="dock-step-num">06</span>
+        <span class="dock-step-label">CONTACT</span>
+      </button>
+
+      <button type="button" id="dock-next-btn" class="dock-nav-arrow" aria-label="Next 3D Station" title="Next Station">▶</button>
+      <span id="depth-meter-badge" class="depth-meter-badge">Z:0.0m [NODE 00]</span>
+    </nav>
+
+    <!-- Virtual Scroll Driver Track (Provides smooth scroll height for 3D Z-axis reveal) -->
+    <div id="scroll-driver-track" aria-hidden="true"></div>
+
+    <!-- ====================================================================
+         ZEN OF PYTHON TERMINAL MODAL (Easter Egg: "import this")
+         ==================================================================== -->
+    <div id="zen-modal" class="modal-backdrop" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="zen-modal-title">
+      <div class="modal-window">
+        <div class="modal-header">
+          <span id="zen-modal-title">TERMINAL // import this</span>
+          <button id="zen-close-btn" class="modal-close-btn" type="button" aria-label="Close modal window">[ESC / CLOSE]</button>
+        </div>
+        <div id="zen-modal-body" class="modal-content"></div>
+      </div>
+    </div>
+
+    <!-- Scripts (Static ES Modules) -->
+    <script type="module" src="./js/main.js"></script>
+  </body>
+</html>

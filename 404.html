@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404: Node Not Found — Md Abdullah Al Mamun</title>
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <style>
+      .error-wrapper {
+        min-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 2rem;
+      }
+      .error-code {
+        font-family: var(--font-mono);
+        font-size: 5rem;
+        font-weight: 800;
+        color: var(--line-mint);
+        line-height: 1;
+        letter-spacing: -0.05em;
+        margin-bottom: 1rem;
+      }
+      .error-msg {
+        font-family: var(--font-mono);
+        color: var(--text-muted);
+        max-width: 480px;
+        margin-bottom: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="error-wrapper">
+      <div class="technical-tag technical-tag-amber" style="margin-bottom: 1rem;">
+        STATUS_CODE: 404 // PIPELINE_BREAK
+      </div>
+      <div class="error-code">404</div>
+      <p class="error-msg">
+        The requested pipeline endpoint or node does not exist in this repository.
+        Return to the source node to re-enter the flow.
+      </p>
+      <a href="./index.html" class="btn-primary">
+        <span>RETURN TO SOURCE [NODE 00]</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    </div>
+  </body>
+</html>
