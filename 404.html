@@ -9,6 +9,14 @@
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
     <link rel="stylesheet" href="/css/style.css" />
+    <script>
+      try {
+        const savedTheme = localStorage.getItem('mamun_theme');
+        if (savedTheme === 'paper' || savedTheme === 'crimson') {
+          document.documentElement.setAttribute('data-theme', savedTheme);
+        }
+      } catch (e) {}
+    </script>
     <style>
       .error-wrapper {
         min-height: 100svh;

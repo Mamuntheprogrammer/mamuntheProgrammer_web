@@ -2024,7 +2024,13 @@ Namespaces are one honking great idea -- let's do more of those!`;
   }
   async function mountPipelineTunnel3D(container, fallback2D) {
     try {
-      let afterDraw = function(cb) {
+      let applyThemeColors = function() {
+        const palette = readThemePalette();
+        scene.fog.color.set(palette.background);
+        themedMaterials.forEach(({ material, role }) => {
+          material.color.set(role === "accent" ? palette.accent : palette.secondary);
+        });
+      }, afterDraw = function(cb) {
         const gl = renderer.getContext();
         if (gl && typeof gl.fenceSync === "function") {
           const sync = gl.fenceSync(gl.SYNC_GPU_COMMANDS_COMPLETE, 0);
@@ -2097,8 +2103,18 @@ Namespaces are one honking great idea -- let's do more of those!`;
       })();
       const width = window.innerWidth || 1280;
       const height = window.innerHeight || 800;
+      const readThemePalette = () => {
+        const styles = getComputedStyle(document.documentElement);
+        const read = (property, fallback) => styles.getPropertyValue(property).trim() || fallback;
+        return {
+          accent: read("--line-mint", "#5eead4"),
+          secondary: read("--packet-amber", "#fbbf24"),
+          background: read("--bg-primary", "#070b10")
+        };
+      };
+      const themePalette = readThemePalette();
       const scene = new THREE.Scene();
-      scene.fog = new THREE.FogExp2(461584, 0.014);
+      scene.fog = new THREE.FogExp2(new THREE.Color(themePalette.background), 0.014);
       const camera = new THREE.PerspectiveCamera(58, width / height, 0.1, 180);
       camera.position.set(0, 0, 6);
       const renderer = new THREE.WebGLRenderer({
@@ -2123,7 +2139,7 @@ Namespaces are one honking great idea -- let's do more of those!`;
       const tubeGeo = new THREE.TubeGeometry(pipelineCurve, 120, 6.2, 8, false);
       const tubeEdges = new THREE.EdgesGeometry(tubeGeo);
       const tubeMat = new THREE.LineBasicMaterial({
-        color: 6220500,
+        color: new THREE.Color(themePalette.accent),
         transparent: true,
         opacity: 0.11
       });
@@ -2132,7 +2148,7 @@ Namespaces are one honking great idea -- let's do more of those!`;
       const corePoints = pipelineCurve.getPoints(200);
       const coreLineGeo = new THREE.BufferGeometry().setFromPoints(corePoints);
       const coreLineMat = new THREE.LineBasicMaterial({
-        color: 16498468,
+        color: new THREE.Color(themePalette.secondary),
         transparent: true,
         opacity: 0.35
       });
@@ -2140,15 +2156,21 @@ Namespaces are one honking great idea -- let's do more of those!`;
       scene.add(coreLine);
       const gatesGroup = new THREE.Group();
       const gateMintMat = new THREE.LineBasicMaterial({
-        color: 6220500,
+        color: new THREE.Color(themePalette.accent),
         transparent: true,
         opacity: 0.45
       });
       const gateAmberMat = new THREE.LineBasicMaterial({
-        color: 16498468,
+        color: new THREE.Color(themePalette.secondary),
         transparent: true,
         opacity: 0.55
       });
+      const themedMaterials = [
+        { material: tubeMat, role: "accent" },
+        { material: coreLineMat, role: "secondary" },
+        { material: gateMintMat, role: "accent" },
+        { material: gateAmberMat, role: "secondary" }
+      ];
       const portalGates = [];
       for (let i = 0; i < stationCount; i++) {
         const t = i / stationCount;
@@ -2165,7 +2187,10 @@ Namespaces are one honking great idea -- let's do more of those!`;
         const innerRing = new THREE.LineSegments(innerEdges, gateMintMat);
         gateHolder.add(innerRing);
         const nodeGeo = new THREE.OctahedronGeometry(0.22, 0);
-        const nodeMat = new THREE.MeshBasicMaterial({ color: i % 2 === 0 ? 16498468 : 6220500 });
+        const nodeMat = new THREE.MeshBasicMaterial({
+          color: new THREE.Color(i % 2 === 0 ? themePalette.secondary : themePalette.accent)
+        });
+        themedMaterials.push({ material: nodeMat, role: i % 2 === 0 ? "secondary" : "accent" });
         for (let c = 0; c < 4; c++) {
           const angle = c * Math.PI / 2 + Math.PI / 4;
           const cornerMesh = new THREE.Mesh(nodeGeo, nodeMat);
@@ -2181,8 +2206,16 @@ Namespaces are one honking great idea -- let's do more of those!`;
       const shards = [];
       const messyGeo = new THREE.OctahedronGeometry(0.16, 0);
       const cleanGeo = new THREE.BoxGeometry(0.22, 0.22, 0.22);
-      const messyMat = new THREE.MeshBasicMaterial({ color: 16498468, wireframe: true });
-      const cleanMat = new THREE.MeshBasicMaterial({ color: 6220500, wireframe: true });
+      const messyMat = new THREE.MeshBasicMaterial({
+        color: new THREE.Color(themePalette.secondary),
+        wireframe: true
+      });
+      const cleanMat = new THREE.MeshBasicMaterial({
+        color: new THREE.Color(themePalette.accent),
+        wireframe: true
+      });
+      themedMaterials.push({ material: messyMat, role: "secondary" });
+      themedMaterials.push({ material: cleanMat, role: "accent" });
       for (let i = 0; i < shardCount; i++) {
         const isClean = i % 2 === 0;
         const mesh = new THREE.Mesh(isClean ? cleanGeo : messyGeo, isClean ? cleanMat : messyMat);
@@ -2193,6 +2226,7 @@ Namespaces are one honking great idea -- let's do more of those!`;
         scene.add(mesh);
         shards.push({ mesh, t, radius, angle, speed, isClean });
       }
+      window.addEventListener("mamun:themechange", applyThemeColors);
       let surgeBoost = 0;
       window.addEventListener("refinery-surge", () => {
         surgeBoost = 1;
@@ -2223,6 +2257,7 @@ Namespaces are one honking great idea -- let's do more of those!`;
       const lookTarget = new THREE.Vector3();
       tick();
       window.addEventListener("beforeunload", () => {
+        window.removeEventListener("mamun:themechange", applyThemeColors);
         cancelAnimationFrame(frameId);
         clearTimeout(frameId);
         renderer.dispose();
@@ -2417,20 +2452,31 @@ Namespaces are one honking great idea -- let's do more of those!`;
     const themeBtn = document.getElementById("toggle-theme-btn");
     if (!themeBtn) return;
     const themeColor = document.querySelector('meta[name="theme-color"]');
+    const themes = ["dark", "paper", "crimson"];
+    const labels = { dark: "DARK", paper: "PAPER", crimson: "CRIMSON" };
+    const browserColors = { dark: "#070b10", paper: "#f1f5f9", crimson: "#000000" };
     const applyTheme = (nextTheme) => {
-      document.documentElement.setAttribute("data-theme", nextTheme);
-      localSet("mamun_theme", nextTheme);
-      themeBtn.textContent = nextTheme === "paper" ? "THEME: PAPER" : "THEME: DARK";
-      themeBtn.setAttribute("aria-pressed", String(nextTheme === "paper"));
+      const theme = themes.includes(nextTheme) ? nextTheme : "dark";
+      document.documentElement.setAttribute("data-theme", theme);
+      localSet("mamun_theme", theme);
+      const nextIndex = (themes.indexOf(theme) + 1) % themes.length;
+      themeBtn.textContent = `THEME: ${labels[theme]}`;
+      themeBtn.setAttribute(
+        "aria-label",
+        `Current theme: ${labels[theme]}. Activate to switch to ${labels[themes[nextIndex]]}.`
+      );
+      themeBtn.removeAttribute("aria-pressed");
       if (themeColor) {
-        themeColor.setAttribute("content", nextTheme === "paper" ? "#f1f5f9" : "#070b10");
+        themeColor.setAttribute("content", browserColors[theme]);
       }
+      window.dispatchEvent(new CustomEvent("mamun:themechange", { detail: { theme } }));
     };
-    const savedTheme = localGet("mamun_theme") || "dark";
-    applyTheme(savedTheme === "paper" ? "paper" : "dark");
+    const savedTheme = localGet("mamun_theme");
+    applyTheme(themes.includes(savedTheme) ? savedTheme : "dark");
     themeBtn.addEventListener("click", () => {
-      const isPaper = document.documentElement.getAttribute("data-theme") === "paper";
-      applyTheme(isPaper ? "dark" : "paper");
+      const current = document.documentElement.getAttribute("data-theme") || "dark";
+      const nextIndex = (themes.indexOf(current) + 1) % themes.length;
+      applyTheme(themes[nextIndex]);
     });
   }
 })();

@@ -18,6 +18,33 @@ test('the portfolio exposes six stations and no legacy AUTOMATE station', () => 
   assert.match(html, /\[EXPLORE STAGES 00 ➔ 05\]/);
 });
 
+test('theme toggle cycles dark, paper, and crimson and restores the saved choice', () => {
+  const main = fs.readFileSync(path.join(ROOT, 'js', 'main.js'), 'utf8');
+  assert.match(main, /const themes = \['dark', 'paper', 'crimson'\]/);
+  assert.match(main, /mamun:themechange/);
+  assert.match(main, /const savedTheme = localGet\('mamun_theme'\)/);
+
+  assert.match(html, /savedTheme === 'paper' \|\| savedTheme === 'crimson'/);
+  assert.match(html, /Cycle Blueprint Dark, Paper, and Crimson themes/);
+
+  const css = fs.readFileSync(path.join(ROOT, 'css', 'style.css'), 'utf8');
+  const crimson = css.match(/\[data-theme="crimson"\]\s*\{([^}]*)\}/s);
+  assert.ok(crimson, 'crimson theme tokens are missing');
+  assert.match(crimson[1], /--bg-primary:\s*#000000/);
+  assert.match(crimson[1], /--line-mint:\s*#cb2957/);
+  assert.match(crimson[1], /--text-primary:\s*#eeeeee/);
+  assert.match(crimson[1], /--text-muted:\s*#dddddd/);
+  assert.match(css, /\[data-theme="crimson"\] \.lock-gate/);
+
+  const scene = fs.readFileSync(path.join(ROOT, 'js', 'scene3d.js'), 'utf8');
+  assert.match(scene, /readThemePalette/);
+  assert.match(scene, /mamun:themechange/);
+
+  const bundle = fs.readFileSync(path.join(ROOT, 'js', 'app.bundle.js'), 'utf8');
+  assert.match(bundle, /crimson/);
+  assert.match(bundle, /mamun:themechange/);
+});
+
 test('header uses the MamunTheProgrammer wordmark with a separate accent', () => {
   assert.match(
     html,

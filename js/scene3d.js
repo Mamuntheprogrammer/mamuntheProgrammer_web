@@ -275,8 +275,20 @@ async function mountPipelineTunnel3D(container, fallback2D) {
     const width = window.innerWidth || 1280;
     const height = window.innerHeight || 800;
 
+    // Read the active theme so the tunnel follows Dark, Paper, and Crimson.
+    const readThemePalette = () => {
+      const styles = getComputedStyle(document.documentElement);
+      const read = (property, fallback) => styles.getPropertyValue(property).trim() || fallback;
+      return {
+        accent: read('--line-mint', '#5eead4'),
+        secondary: read('--packet-amber', '#fbbf24'),
+        background: read('--bg-primary', '#070b10'),
+      };
+    };
+    const themePalette = readThemePalette();
+
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x070b10, 0.014);
+    scene.fog = new THREE.FogExp2(new THREE.Color(themePalette.background), 0.014);
 
     const camera = new THREE.PerspectiveCamera(58, width / height, 0.1, 180);
     camera.position.set(0, 0, 6);
@@ -308,7 +320,7 @@ async function mountPipelineTunnel3D(container, fallback2D) {
     const tubeGeo = new THREE.TubeGeometry(pipelineCurve, 120, 6.2, 8, false);
     const tubeEdges = new THREE.EdgesGeometry(tubeGeo);
     const tubeMat = new THREE.LineBasicMaterial({
-      color: 0x5eead4,
+      color: new THREE.Color(themePalette.accent),
       transparent: true,
       opacity: 0.11,
     });
@@ -319,7 +331,7 @@ async function mountPipelineTunnel3D(container, fallback2D) {
     const corePoints = pipelineCurve.getPoints(200);
     const coreLineGeo = new THREE.BufferGeometry().setFromPoints(corePoints);
     const coreLineMat = new THREE.LineBasicMaterial({
-      color: 0xfbbf24,
+      color: new THREE.Color(themePalette.secondary),
       transparent: true,
       opacity: 0.35,
     });
@@ -329,15 +341,22 @@ async function mountPipelineTunnel3D(container, fallback2D) {
     // 2. Build one Architectural Refinery Portal Gate per station
     const gatesGroup = new THREE.Group();
     const gateMintMat = new THREE.LineBasicMaterial({
-      color: 0x5eead4,
+      color: new THREE.Color(themePalette.accent),
       transparent: true,
       opacity: 0.45,
     });
     const gateAmberMat = new THREE.LineBasicMaterial({
-      color: 0xfbbf24,
+      color: new THREE.Color(themePalette.secondary),
       transparent: true,
       opacity: 0.55,
     });
+
+    const themedMaterials = [
+      { material: tubeMat, role: 'accent' },
+      { material: coreLineMat, role: 'secondary' },
+      { material: gateMintMat, role: 'accent' },
+      { material: gateAmberMat, role: 'secondary' },
+    ];
 
     const portalGates = [];
 
@@ -363,7 +382,10 @@ async function mountPipelineTunnel3D(container, fallback2D) {
 
       // Corner data nodes on the portal
       const nodeGeo = new THREE.OctahedronGeometry(0.22, 0);
-      const nodeMat = new THREE.MeshBasicMaterial({ color: i % 2 === 0 ? 0xfbbf24 : 0x5eead4 });
+      const nodeMat = new THREE.MeshBasicMaterial({
+        color: new THREE.Color(i % 2 === 0 ? themePalette.secondary : themePalette.accent),
+      });
+      themedMaterials.push({ material: nodeMat, role: i % 2 === 0 ? 'secondary' : 'accent' });
       for (let c = 0; c < 4; c++) {
         const angle = (c * Math.PI) / 2 + Math.PI / 4;
         const cornerMesh = new THREE.Mesh(nodeGeo, nodeMat);
@@ -382,8 +404,16 @@ async function mountPipelineTunnel3D(container, fallback2D) {
     const shards = [];
     const messyGeo = new THREE.OctahedronGeometry(0.16, 0);
     const cleanGeo = new THREE.BoxGeometry(0.22, 0.22, 0.22);
-    const messyMat = new THREE.MeshBasicMaterial({ color: 0xfbbf24, wireframe: true });
-    const cleanMat = new THREE.MeshBasicMaterial({ color: 0x5eead4, wireframe: true });
+    const messyMat = new THREE.MeshBasicMaterial({
+      color: new THREE.Color(themePalette.secondary),
+      wireframe: true,
+    });
+    const cleanMat = new THREE.MeshBasicMaterial({
+      color: new THREE.Color(themePalette.accent),
+      wireframe: true,
+    });
+    themedMaterials.push({ material: messyMat, role: 'secondary' });
+    themedMaterials.push({ material: cleanMat, role: 'accent' });
 
     for (let i = 0; i < shardCount; i++) {
       const isClean = i % 2 === 0;
@@ -396,6 +426,16 @@ async function mountPipelineTunnel3D(container, fallback2D) {
       scene.add(mesh);
       shards.push({ mesh, t, radius, angle, speed, isClean });
     }
+
+    function applyThemeColors() {
+      const palette = readThemePalette();
+      scene.fog.color.set(palette.background);
+      themedMaterials.forEach(({ material, role }) => {
+        material.color.set(role === 'accent' ? palette.accent : palette.secondary);
+      });
+    }
+
+    window.addEventListener('mamun:themechange', applyThemeColors);
 
     // Burst surge effect when user clicks "Inject Messy Data"
     let surgeBoost = 0;
@@ -513,6 +553,7 @@ async function mountPipelineTunnel3D(container, fallback2D) {
     tick();
 
     window.addEventListener('beforeunload', () => {
+      window.removeEventListener('mamun:themechange', applyThemeColors);
       cancelAnimationFrame(frameId);
       clearTimeout(frameId);
       renderer.dispose();

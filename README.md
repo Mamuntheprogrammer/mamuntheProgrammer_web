@@ -13,6 +13,7 @@ The site is a **static portfolio** designed for **GitHub Pages**: semantic HTML,
 - **Desktop 3D pipeline** — scroll flies the camera through a Three.js pipeline tunnel with six stations.
 - **Post-intro lock gate** — a playful animated padlock challenge with nine expertise paths (Python, ABAP, SQL, JavaScript, Go, Rust, Java, Excel, Linux), a typing terminal, free hints, and a letter-rebuild puzzle that reveals a cheat code. Passing shows a success message and a three-second countdown before the portfolio appears. It is always skippable.
 - **Mobile-first classic layout** — phones and touch tablets automatically use normal document scrolling, so long sections (especially projects) remain easy to reach.
+- **Three visual themes** — cycle the header button through Blueprint Dark, Paper, and Crimson (pure black with a `#CB2957` signal accent). The saved choice is restored before first paint, and the 3D tunnel recolors live.
 - **Interactive domain console** — Python, SAP, Data, and AI tabs swap the live refinery view, hero bio, process labels, and telemetry.
 - **Portrait lightbox** — click the round portrait for a larger, accessible image view.
 - **Embedded data analysis** — the Data domain opens a full scrollable Aristopharma target-vs-achievement dashboard, with separate desktop and mobile builds.
@@ -106,7 +107,7 @@ tests/                  Node test-runner checks for logic, markup, and assets
 - **Contact links and email**: `#section-06-report` (`data-email` on `#contact-email-val`).
 - **Fallback repositories**: `data/projects.json`.
 - **Lock gate challenges**: `LOCK_CHALLENGES` in `js/lockgate.js` (questions, accepted answers, hints, cheat codes, success copy). Rebuild the bundle after editing.
-- **Colors / themes**: CSS custom properties at the top of `css/style.css` (dark and `[data-theme="paper"]`).
+- **Colors / themes**: CSS custom properties at the top of `css/style.css` (`:root` dark, `[data-theme="paper"]`, and `[data-theme="crimson"]`). The header button cycles Dark → Paper → Crimson.
 
 Replace `assets/profile.jpg` and regenerate `assets/social-preview.jpg` when updating the portrait. Keep the social preview at 1200×630 for best results.
 

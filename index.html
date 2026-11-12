@@ -44,8 +44,9 @@
     <!-- Apply the saved theme before first paint to avoid a flash -->
     <script>
       try {
-        if (localStorage.getItem('mamun_theme') === 'paper') {
-          document.documentElement.setAttribute('data-theme', 'paper');
+        const savedTheme = localStorage.getItem('mamun_theme');
+        if (savedTheme === 'paper' || savedTheme === 'crimson') {
+          document.documentElement.setAttribute('data-theme', savedTheme);
         }
       } catch (e) {}
     </script>
@@ -374,7 +375,7 @@
           <button id="toggle-3d-btn" class="btn-icon" type="button" aria-pressed="true" title="Toggle 3D Z-Axis Scroll Reveal vs Classic Scroll">
             VIEW: 3D REVEAL
           </button>
-          <button id="toggle-theme-btn" class="btn-icon" type="button" title="Toggle Blueprint Dark vs Paper theme">
+          <button id="toggle-theme-btn" class="btn-icon" type="button" title="Cycle Blueprint Dark, Paper, and Crimson themes">
             THEME: DARK
           </button>
         </div>
