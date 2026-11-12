@@ -22,7 +22,7 @@ export const ICONS = {
       <line class="draw-path" x1="8" y1="32" x2="56" y2="32" stroke-dasharray="3 3" />
       <line class="draw-path" x1="32" y1="8" x2="32" y2="56" />
       <!-- Integrated transaction badge [T] -->
-      <rect class="draw-path" x="22" y="22" width="20" height="20" rx="3" fill="#0f1520" stroke="currentColor" />
+      <rect class="draw-path" x="22" y="22" width="20" height="20" rx="3" fill="var(--bg-surface-solid)" stroke="currentColor" />
       <path class="draw-path" d="M 26 27 L 38 27 M 32 27 L 32 37" />
     </svg>
   `,

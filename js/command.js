@@ -1,6 +1,6 @@
 /**
  * SAP-style Command Bar & Easter Eggs
- * Handles T-Codes (/nSE38, /nVA01, /nME21N, /nSE16, /nHOME, /nPORBO, /nPROJ, /nCONTACT, /nYT),
+ * Handles T-Codes (/nSE38, /nVA01, /nME21N, /nSE16, /nHOME, /nPORBO, /nPROJ, /nYT, /nCONTACT),
  * "import this" (Zen of Python modal), and keyboard hotkey "/".
  */
 
@@ -68,6 +68,7 @@ export function initCommandBar() {
       if (zenModal) {
         zenModal.classList.add('active');
         zenModal.setAttribute('aria-hidden', 'false');
+        zenCloseBtn?.focus();
       }
       showFeedback('Executing "import this"... Displaying Zen of Python.');
     } else if (result.type === 'help') {
@@ -83,6 +84,9 @@ export function initCommandBar() {
   if (input) {
     input.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') {
+        // Prevent the default Enter activation from immediately clicking the
+        // Zen modal close button after execute() moves focus there.
+        e.preventDefault();
         execute(input.value);
       }
       if (e.key === 'Escape') {
@@ -94,8 +98,9 @@ export function initCommandBar() {
   window.addEventListener('keydown', (e) => {
     const activeTag = document.activeElement?.tagName.toLowerCase();
     const isTyping = activeTag === 'input' || activeTag === 'textarea';
+    const inputIsVisible = input && input.offsetParent !== null;
 
-    if (e.key === '/' && !isTyping && input) {
+    if (e.key === '/' && !isTyping && inputIsVisible) {
       e.preventDefault();
       input.focus();
       input.select();
@@ -104,6 +109,7 @@ export function initCommandBar() {
     if (e.key === 'Escape' && zenModal?.classList.contains('active')) {
       zenModal.classList.remove('active');
       zenModal.setAttribute('aria-hidden', 'true');
+      if (inputIsVisible) input.focus();
     }
   });
 

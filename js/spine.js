@@ -1,7 +1,8 @@
 /**
- * One-Page 3D Z-Axis Scroll-Reveal Engine
- * Transforms stations in 3D perspective space as the user scrolls,
- * syncs the bottom pipeline scrubber dock, and exposes navigation helpers.
+ * One-Page Navigation & 3D Z-Axis Scroll-Reveal Engine
+ * Transforms stations in 3D perspective space on desktop, syncs the bottom
+ * pipeline scrubber dock, and falls back to normal document scrolling in
+ * classic mode (mobile, reduced motion, or the VIEW toggle).
  */
 
 export function initSpine() {
@@ -16,7 +17,9 @@ export function initSpine() {
   const maxIndex = stations.length - 1;
   let targetProgress = 0;
   let currentProgress = 0;
+  let classicActiveIndex = 0;
   let rafId = 0;
+  let classicObserver = null;
 
   const isClassicMode = () =>
     document.body.classList.contains('classic-mode') ||
@@ -31,11 +34,14 @@ export function initSpine() {
 
   const scrollToStationIndex = (index) => {
     const clamped = Math.max(0, Math.min(maxIndex, index));
+
     if (isClassicMode()) {
+      classicActiveIndex = clamped;
       stations[clamped]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       updateDockUI(clamped);
       return;
     }
+
     const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
     const targetY = (clamped / maxIndex) * maxScroll;
     window.scrollTo({ top: targetY, behavior: 'smooth' });
@@ -44,11 +50,13 @@ export function initSpine() {
   // Expose global navigation helper for SAP Command Bar, Hero CTAs, and 3D gates
   window.navigateToStationById = (elementId) => {
     if (!elementId) return false;
+
     const directIdx = stations.findIndex((s) => s.id === elementId);
     if (directIdx !== -1) {
       scrollToStationIndex(directIdx);
       return true;
     }
+
     const innerEl = document.getElementById(elementId);
     if (innerEl) {
       const parentStation = innerEl.closest('.spatial-station');
@@ -62,13 +70,15 @@ export function initSpine() {
             setTimeout(() => {
               innerEl.style.boxShadow = '';
             }, 1800);
-          }, 420);
+          }, isClassicMode() ? 650 : 420);
           return true;
         }
       }
     }
     return false;
   };
+
+  const displayProgress = () => (isClassicMode() ? classicActiveIndex : currentProgress);
 
   const updateDockUI = (activeIndex) => {
     dockButtons.forEach((btn, idx) => {
@@ -82,9 +92,9 @@ export function initSpine() {
     });
 
     if (depthMeter) {
-      const zMeters = (currentProgress * -35).toFixed(1);
+      const zMeters = (displayProgress() * -35).toFixed(1);
       const nodeStr = String(activeIndex).padStart(2, '0');
-      depthMeter.textContent = `Z:${zMeters}m [NODE ${nodeStr}]`;
+      depthMeter.textContent = `Z:${zMeters}m // STAGE ${nodeStr}`;
     }
   };
 
@@ -94,7 +104,9 @@ export function initSpine() {
         st.classList.add('is-interactive', 'is-visible');
         st.style.transform = 'none';
         st.style.opacity = '1';
+        st.inert = false;
       });
+      updateDockUI(classicActiveIndex);
       return;
     }
 
@@ -122,6 +134,7 @@ export function initSpine() {
         station.classList.remove('is-interactive', 'is-visible');
         station.style.opacity = '0';
         station.style.transform = 'translate3d(0, 0, -1400px)';
+        station.inert = true;
         return;
       }
 
@@ -129,8 +142,10 @@ export function initSpine() {
 
       if (absDelta < 0.46) {
         station.classList.add('is-interactive');
+        station.inert = false;
       } else {
         station.classList.remove('is-interactive');
+        station.inert = true;
       }
 
       if (delta >= 0) {
@@ -159,10 +174,31 @@ export function initSpine() {
   };
 
   const requestUpdate = () => {
+    if (isClassicMode()) return;
     syncTargetFromWindowScroll();
     if (!rafId) {
       rafId = requestAnimationFrame(render3DStations);
     }
+  };
+
+  // In classic mode, keep the dock in sync with whichever section is centred.
+  const observeClassicStations = () => {
+    if (!('IntersectionObserver' in window) || classicObserver) return;
+
+    classicObserver = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting);
+        if (!visible.length) return;
+        const idx = stations.indexOf(visible[0].target);
+        if (idx !== -1 && idx !== classicActiveIndex) {
+          classicActiveIndex = idx;
+          updateDockUI(idx);
+        }
+      },
+      { rootMargin: '-38% 0px -56% 0px', threshold: 0 }
+    );
+
+    stations.forEach((station) => classicObserver.observe(station));
   };
 
   window.addEventListener('scroll', requestUpdate, { passive: true });
@@ -177,13 +213,15 @@ export function initSpine() {
 
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
-      scrollToStationIndex(Math.round(currentProgress) - 1);
+      const current = isClassicMode() ? classicActiveIndex : Math.round(currentProgress);
+      scrollToStationIndex(current - 1);
     });
   }
 
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
-      scrollToStationIndex(Math.round(currentProgress) + 1);
+      const current = isClassicMode() ? classicActiveIndex : Math.round(currentProgress);
+      scrollToStationIndex(current + 1);
     });
   }
 
@@ -205,16 +243,38 @@ export function initSpine() {
     const tag = document.activeElement?.tagName.toLowerCase();
     if (tag === 'input' || tag === 'textarea') return;
 
+    const current = isClassicMode() ? classicActiveIndex : Math.round(currentProgress);
+
     if (e.key === 'PageDown' || (e.key === 'ArrowRight' && e.altKey)) {
       e.preventDefault();
-      scrollToStationIndex(Math.round(currentProgress) + 1);
+      scrollToStationIndex(current + 1);
     } else if (e.key === 'PageUp' || (e.key === 'ArrowLeft' && e.altKey)) {
       e.preventDefault();
-      scrollToStationIndex(Math.round(currentProgress) - 1);
+      scrollToStationIndex(current - 1);
     }
   });
 
   // Initial render
   syncTargetFromWindowScroll();
   render3DStations();
+  if (isClassicMode()) observeClassicStations();
+
+  // Deep links (#section-...) should open the right station. The project
+  // grid loads asynchronously, so recalculate once its height is known.
+  const initialHash = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : '';
+  if (initialHash) {
+    const navigateToInitialHash = () => window.navigateToStationById(initialHash);
+    setTimeout(navigateToInitialHash, 150);
+    window.addEventListener(
+      'projects-loaded',
+      () => setTimeout(navigateToInitialHash, 120),
+      { once: true }
+    );
+  }
+
+  // Keep the scrubber in sync when the user edits the URL hash manually.
+  window.addEventListener('hashchange', () => {
+    const nextHash = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : '';
+    if (nextHash) window.navigateToStationById(nextHash);
+  });
 }

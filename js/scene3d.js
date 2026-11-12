@@ -1,11 +1,15 @@
 /**
  * Full-Viewport 3D Spatial Pipeline Tunnel & Messy-to-Meaningful Refinery
  * - Flies the 3D camera along a 3D Catmull-Rom pipeline spline as the user scrolls
- * - Renders 7 architectural Hexagonal Refinery Portal Gates at each station node
+ * - Renders an architectural Hexagonal Refinery Portal Gate at each station
  * - Streams data shards that transform from chaotic amber entropy into ordered mint crystals
  * - Includes interactive Hero Refinery Console (Inject Messy Batch + Domain Filter)
  * - Enforces software-WebGL (SwiftShader) frame pacing via afterDraw()
+ * - Phones and touch tablets use the classic flowing layout for reliable scrolling
  */
+
+import { sessionGet, sessionSet } from './utils/storage.js';
+import { isCompactViewport, COMPACT_VIEWPORT_QUERY } from './utils/viewport.js';
 
 export function init3DScene() {
   const container = document.getElementById('tunnel-canvas-container');
@@ -18,8 +22,17 @@ export function init3DScene() {
   if (!container || !fallback2D) return;
 
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const savedPref = sessionStorage.getItem('mamun_3d_enabled');
-  const isEnabled = savedPref === null ? !prefersReduced : savedPref === 'true';
+  const compactViewport = isCompactViewport();
+  const fileProtocol = window.location.protocol === 'file:';
+  document.body.classList.toggle('compact-mode', compactViewport);
+
+  // Opening index.html directly (file://) blocks module/font CORS in browsers.
+  // The classic document layout below still works from disk, so use it there.
+  const forceClassic = compactViewport || prefersReduced || fileProtocol;
+  const savedPref = sessionGet('mamun_3d_enabled');
+  // Touch/small screens and reduced-motion users always use the classic
+  // document flow. Desktop keeps the user's saved 3D preference.
+  const isEnabled = !forceClassic && (savedPref === null ? true : savedPref === 'true');
 
   if (!isEnabled) {
     document.body.classList.add('classic-mode');
@@ -27,18 +40,32 @@ export function init3DScene() {
     document.body.classList.remove('classic-mode');
   }
 
+  if (forceClassic) {
+    document.body.classList.add('classic-mode');
+    if (toggleBtn) toggleBtn.hidden = true;
+  }
+
   updateToggleButton(toggleBtn, isEnabled);
 
   if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
+      if (isCompactViewport() || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const currentlyClassic = document.body.classList.contains('classic-mode');
       const next3D = currentlyClassic;
-      sessionStorage.setItem('mamun_3d_enabled', String(next3D));
+      sessionSet('mamun_3d_enabled', String(next3D));
       window.location.reload();
     });
   }
 
-  if (!isEnabled || prefersReduced) {
+  // If a desktop window is resized across the compact breakpoint, reload once
+  // so the scroll model and CSS layout stay in sync.
+  const compactQuery = window.matchMedia(COMPACT_VIEWPORT_QUERY);
+  const handleViewportChange = () => window.location.reload();
+  if (typeof compactQuery.addEventListener === 'function') {
+    compactQuery.addEventListener('change', handleViewportChange);
+  }
+
+  if (!isEnabled) {
     return;
   }
 
@@ -63,44 +90,153 @@ function initInteractiveRefineryConsole() {
   const injectBtn = document.getElementById('refinery-inject-btn');
   const statusEl = document.getElementById('refinery-telemetry-status');
   const svgStage = document.getElementById('refinery-svg-stream');
-  const domainBtns = document.querySelectorAll('[data-refinery-domain]');
+  const domainBtns = Array.from(document.querySelectorAll('[data-refinery-domain]'));
+  const panelEl = document.getElementById('refinery-domain-panel');
+  const titleEl = document.getElementById('refinery-domain-title');
+  const tagEl = document.getElementById('refinery-domain-tag');
+  const descEl = document.getElementById('refinery-domain-desc');
+  const pointsEl = document.getElementById('refinery-domain-points');
+  const analysisBtn = document.getElementById('refinery-analysis-btn');
+  const heroBio = document.getElementById('hero-bio');
+  const labelIn = document.getElementById('refinery-svg-label-in');
+  const labelGate = document.getElementById('refinery-svg-label-gate');
+  const labelOut = document.getElementById('refinery-svg-label-out');
 
-  const DOMAIN_TELEMETRY = {
+  const DOMAIN_VIEWS = {
     python: {
+      tabId: 'refinery-tab-python',
+      title: 'Python // Systems Engine',
+      tag: 'CORE LANGUAGE',
+      bio: 'Python-first engineer turning messy files, folders, and APIs into dependable systems — ETL pipelines, Pandas analysis, Django/Flask backends, and Tkinter desktop tools.',
+      description: 'I design Python systems that remove repetitive manual work and keep data moving cleanly from source to output.',
+      points: [
+        'ETL & file-processing pipelines',
+        'Django & Flask backends',
+        'Pandas & NumPy analysis',
+        'Tkinter desktop utilities',
+      ],
       in: 'RAW_EXCEL_BATCH (42 sheets)',
-      gate: 'PANDAS // TKINTER NORMALIZER',
       out: 'CLEAN_SCHEMA: 100% MERGED',
+      labels: ['01. RAW FILES', '02. PYTHON ENGINE', '03. CLEAN DATA'],
+      analysis: false,
     },
     sap: {
+      tabId: 'refinery-tab-sap',
+      title: 'SAP // ABAP × SD × MM',
+      tag: 'TECHNO-FUNCTIONAL',
+      bio: 'Techno-functional SAP engineer bridging ABAP development with SD/MM business processes — custom reports, BAPIs, enhancements, O2C, P2P, and clean technical specs.',
+      description: 'I translate business rules into reliable SAP technical solutions, then validate them against live SD and MM process flows.',
+      points: [
+        'ABAP reports, ALV & BAPIs',
+        'SD: O2C, pricing & billing',
+        'MM: P2P & inventory management',
+        'Functional-to-technical specifications',
+      ],
       in: 'IDOC_ORDERS05 // RAW_FLATFILE',
-      gate: 'ABAP BAPI_SALESORDER_CREATE',
       out: 'SAP SD/MM POSTED (0 ERRORS)',
+      labels: ['01. FLAT FILES', '02. ABAP BAPI', '03. SAP POSTED'],
+      analysis: false,
     },
     data: {
+      tabId: 'refinery-tab-data',
+      title: 'Data // Messy → Meaningful',
+      tag: 'ANALYTICS',
+      bio: 'Data analyst turning raw operational workbooks into clean relational models, reconciled KPIs, and decision-ready dashboards — using SQL, MySQL, MongoDB, and Excel2SQL.',
+      description: 'I clean the source, model the relationships, and surface the few numbers that actually drive a decision.',
+      points: [
+        'Excel2SQL schema inference',
+        'SQL / MySQL / MongoDB querying',
+        'KPI reporting & reconciliation',
+        'Latest: Aristopharma target vs achievement',
+      ],
       in: 'UNSTRUCTURED_CSV_LOGS',
-      gate: 'EXCEL2SQL PARSER ENGINE',
       out: 'MYSQL_RELATIONAL_TABLE',
+      labels: ['01. MESSY SHEETS', '02. SQL REFINERY', '03. LIVE DASHBOARD'],
+      analysis: true,
     },
     ai: {
+      tabId: 'refinery-tab-ai',
+      title: 'AI // Agentic Workflows',
+      tag: 'INTELLIGENCE',
+      bio: 'Agentic-AI builder designing PLAN → ACT → OBSERVE workflows that parse inputs, verify outputs, and keep a human in the loop — with strict review and testing.',
+      description: 'I use AI for velocity, not blind trust: every generated step is checked, tested, and reviewed before it ships.',
+      points: [
+        'Plan → Act → Observe agent loops',
+        'ML classification & prediction',
+        'Verified, human-reviewed output',
+        'Vibe coding backed by tests',
+      ],
       in: 'AMBIGUOUS_USER_PROMPT',
-      gate: 'AGENTIC: PLAN ➔ ACT ➔ OBSERVE',
       out: 'VERIFIED_AUTONOMOUS_ACTION',
+      labels: ['01. RAW PROMPT', '02. AGENT LOOP', '03. VERIFIED OUTPUT'],
+      analysis: false,
     },
   };
 
-  if (domainBtns.length && statusEl) {
+  const activeDomain = (key) => DOMAIN_VIEWS[key] || DOMAIN_VIEWS.python;
+
+  const selectDomain = (key, { focusTab = false } = {}) => {
+    const info = activeDomain(key);
+
+    domainBtns.forEach((btn) => {
+      const isActive = btn.getAttribute('data-refinery-domain') === key;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', String(isActive));
+      btn.tabIndex = isActive ? 0 : -1;
+      if (isActive && focusTab) btn.focus();
+    });
+
+    if (panelEl) panelEl.setAttribute('aria-labelledby', info.tabId);
+    if (titleEl) titleEl.textContent = info.title;
+    if (tagEl) tagEl.textContent = info.tag;
+    if (descEl) descEl.textContent = info.description;
+    if (heroBio) heroBio.textContent = info.bio;
+    if (analysisBtn) analysisBtn.hidden = !info.analysis;
+
+    if (pointsEl) {
+      pointsEl.replaceChildren(
+        ...info.points.map((point) => {
+          const li = document.createElement('li');
+          li.textContent = point;
+          return li;
+        })
+      );
+    }
+
+    if (labelIn) labelIn.textContent = info.labels[0];
+    if (labelGate) labelGate.textContent = info.labels[1];
+    if (labelOut) labelOut.textContent = info.labels[2];
+
+    if (statusEl) {
+      statusEl.innerHTML = `
+        <span>IN: <strong style="color:var(--packet-amber)">${info.in}</strong></span>
+        <span>➔</span>
+        <span>OUT: <strong style="color:var(--line-mint)">${info.out}</strong></span>
+      `;
+    }
+
+    window.dispatchEvent(new CustomEvent('refinery-surge'));
+  };
+
+  if (domainBtns.length) {
     domainBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
-        domainBtns.forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
-        const key = btn.getAttribute('data-refinery-domain') || 'python';
-        const info = DOMAIN_TELEMETRY[key] || DOMAIN_TELEMETRY.python;
-        statusEl.innerHTML = `
-          <span>IN: <strong style="color:var(--packet-amber)">${info.in}</strong></span>
-          <span>➔</span>
-          <span>OUT: <strong style="color:var(--line-mint)">${info.out}</strong></span>
-        `;
-        window.dispatchEvent(new CustomEvent('refinery-surge'));
+        selectDomain(btn.getAttribute('data-refinery-domain') || 'python');
+      });
+
+      btn.addEventListener('keydown', (event) => {
+        const keys = Object.keys(DOMAIN_VIEWS);
+        const index = keys.indexOf(btn.getAttribute('data-refinery-domain') || 'python');
+        let nextIndex = index;
+
+        if (event.key === 'ArrowRight') nextIndex = (index + 1) % keys.length;
+        else if (event.key === 'ArrowLeft') nextIndex = (index - 1 + keys.length) % keys.length;
+        else if (event.key === 'Home') nextIndex = 0;
+        else if (event.key === 'End') nextIndex = keys.length - 1;
+        else return;
+
+        event.preventDefault();
+        selectDomain(keys[nextIndex], { focusTab: true });
       });
     });
   }
@@ -157,10 +293,11 @@ async function mountPipelineTunnel3D(container, fallback2D) {
     container.appendChild(renderer.domElement);
     fallback2D.style.opacity = '0.12';
 
-    // 1. Build the 3D Pipeline Spline Curve through Z-space (7 stations: z = 0 to z = -210)
+    // 1. Build the 3D Pipeline Spline Curve through Z-space (6 stations: z = 0 to z = -210)
+    const stationCount = document.querySelectorAll('.spatial-station').length || 6;
     const curvePoints = [];
-    for (let i = 0; i <= 7; i++) {
-      const z = -i * 35;
+    for (let i = 0; i <= stationCount; i++) {
+      const z = -i * (210 / stationCount);
       const x = Math.sin(i * 1.1) * 4.5;
       const y = Math.cos(i * 0.9) * 2.2;
       curvePoints.push(new THREE.Vector3(x, y, z));
@@ -189,7 +326,7 @@ async function mountPipelineTunnel3D(container, fallback2D) {
     const coreLine = new THREE.LineSegments(coreLineGeo, coreLineMat);
     scene.add(coreLine);
 
-    // 2. Build 7 Architectural Refinery Portal Gates at each Station Node
+    // 2. Build one Architectural Refinery Portal Gate per station
     const gatesGroup = new THREE.Group();
     const gateMintMat = new THREE.LineBasicMaterial({
       color: 0x5eead4,
@@ -204,8 +341,8 @@ async function mountPipelineTunnel3D(container, fallback2D) {
 
     const portalGates = [];
 
-    for (let i = 0; i < 7; i++) {
-      const t = i / 7;
+    for (let i = 0; i < stationCount; i++) {
+      const t = i / stationCount;
       const pos = pipelineCurve.getPointAt(t);
       const tangent = pipelineCurve.getTangentAt(t);
 
@@ -324,9 +461,10 @@ async function mountPipelineTunnel3D(container, fallback2D) {
         surgeBoost = Math.max(0, surgeBoost - dt * 1.2);
       }
 
-      // Read scroll progress (0..6) shared by spine.js
-      const progress = Math.max(0, Math.min(6, window.pipelineScrollProgress || 0));
-      const curveT = Math.min(0.96, (progress / 6) * 0.86);
+      // Read scroll progress (0..stationCount-1) shared by spine.js
+      const maxProgress = Math.max(1, stationCount - 1);
+      const progress = Math.max(0, Math.min(maxProgress, window.pipelineScrollProgress || 0));
+      const curveT = Math.min(0.96, (progress / maxProgress) * 0.86);
 
       // Position camera along the 3D pipeline spline
       const camPos = pipelineCurve.getPointAt(curveT);

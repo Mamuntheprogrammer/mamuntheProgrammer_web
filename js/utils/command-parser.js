@@ -16,7 +16,7 @@ export function parseCommand(raw) {
   if (cmd === 'help') {
     return {
       type: 'help',
-      message: 'Available commands: /nSE38 (ABAP), /nVA01 (SD), /nME21N (MM), /nSE16 (Toolbelt), /nHOME (Hero), /nPROJ (Projects), /nCONTACT (Contact), "import this" (Zen of Python).',
+      message: 'Available commands: /nSE38 (ABAP), /nVA01 (SD), /nME21N (MM), /nSE16 (Toolbelt), /nHOME (Hero), /nPORBO (porbobd.com), /nPROJ (Projects), /nYT (YouTube), /nCONTACT (Contact), "import this" (Zen of Python).',
     };
   }
 
@@ -39,8 +39,10 @@ export function parseCommand(raw) {
     '/nva01': { targetId: 'station-sap-sd', label: 'VA01: Create Sales Order (SD)' },
     '/nme21n': { targetId: 'station-sap-mm', label: 'ME21N: Create Purchase Order (MM)' },
     '/nse16': { targetId: 'section-02-transform', label: 'SE16: Data Browser / Toolbelt' },
-    '/nhome': { targetId: 'section-00-source', label: 'SOURCE: Hero Constellation' },
+    '/nhome': { targetId: 'section-00-source', label: 'SOURCE: Hero' },
+    '/nporbo': { targetId: 'porbobd-spotlight', label: 'PORBO: porbobd.com Venture' },
     '/nproj': { targetId: 'section-03-load', label: 'LOAD: Repository Records' },
+    '/nyt': { targetId: 'section-06-report', label: 'YT: YouTube Channel' },
     '/ncontact': { targetId: 'section-06-report', label: 'REPORT: Communication Endpoint' },
   };
 

@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { parseCommand } from '../src/utils/command-parser.ts';
-import { filterAndFormatRepos, RawRepo } from '../src/utils/github-filter.ts';
-import { generateSpinePath, clamp, interpolate } from '../src/utils/spine-math.ts';
+import { parseCommand } from '../js/utils/command-parser.js';
+import { filterAndFormatRepos } from '../js/utils/github-filter.js';
+import { generateSpinePath, clamp, interpolate } from '../js/utils/spine-math.js';
 
 test('parseCommand handles valid SAP transaction codes and easter eggs', () => {
   assert.equal(parseCommand('/nSE38').type, 'navigate');
@@ -24,7 +24,7 @@ test('parseCommand handles valid SAP transaction codes and easter eggs', () => {
 });
 
 test('filterAndFormatRepos excludes forks and empty repos while prioritizing featured items', () => {
-  const sampleRepos: RawRepo[] = [
+  const sampleRepos = [
     {
       name: 'forked-repo',
       description: 'Some forked library',

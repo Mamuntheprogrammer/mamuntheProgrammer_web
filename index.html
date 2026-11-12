@@ -2,32 +2,96 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Md Abdullah Al Mamun - The Pipeline 3D Portfolio</title>
     <meta name="description" content="Personal portfolio of Md Abdullah Al Mamun (Mamuntheprogrammer) — I move data from messy to meaningful. Featuring Python, SAP (ABAP / SD / MM), Data, Web, Agentic AI, Flutter, and porbobd.com." />
+    <meta name="author" content="Md Abdullah Al Mamun" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#070b10" />
+    <link rel="canonical" href="https://mamuntheprogrammer.github.io/" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Md Abdullah Al Mamun — The Pipeline" />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:url" content="https://mamuntheprogrammer.github.io/" />
     <meta property="og:title" content="Md Abdullah Al Mamun - The Pipeline 3D Portfolio" />
     <meta property="og:description" content="I move data from messy to meaningful. Interactive 3D scroll-reveal portfolio spanning Python, SAP, Data Analysis, Web, Agentic AI, and Flutter." />
-    <meta property="og:image" content="./assets/profile.jpg" />
+    <meta property="og:image" content="https://mamuntheprogrammer.github.io/assets/social-preview.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Md Abdullah Al Mamun — The Pipeline portfolio cover" />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:title" content="Md Abdullah Al Mamun - The Pipeline 3D Portfolio" />
-    <meta property="twitter:description" content="I move data from messy to meaningful. Interactive 3D scroll-reveal portfolio spanning Python, SAP, Data Analysis, Web, Agentic AI, and Flutter." />
-    <meta property="twitter:image" content="./assets/profile.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Md Abdullah Al Mamun - The Pipeline 3D Portfolio" />
+    <meta name="twitter:description" content="I move data from messy to meaningful. Interactive 3D scroll-reveal portfolio spanning Python, SAP, Data Analysis, Web, Agentic AI, and Flutter." />
+    <meta name="twitter:image" content="https://mamuntheprogrammer.github.io/assets/social-preview.jpg" />
+    <meta name="twitter:image:alt" content="Md Abdullah Al Mamun — The Pipeline portfolio cover" />
 
-    <!-- Favicon -->
+    <!-- Icons -->
     <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png" />
+
+    <!-- Self-hosted variable fonts (no third-party requests) -->
+    <link rel="preload" href="./assets/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="./assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- Apply the saved theme before first paint to avoid a flash -->
+    <script>
+      try {
+        if (localStorage.getItem('mamun_theme') === 'paper') {
+          document.documentElement.setAttribute('data-theme', 'paper');
+        }
+      } catch (e) {}
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Md Abdullah Al Mamun",
+        "alternateName": "Mamuntheprogrammer",
+        "url": "https://mamuntheprogrammer.github.io/",
+        "image": "https://mamuntheprogrammer.github.io/assets/profile.jpg",
+        "jobTitle": "Techno-Functional Software Engineer",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Dhaka",
+          "addressCountry": "BD"
+        },
+        "sameAs": [
+          "https://github.com/Mamuntheprogrammer",
+          "https://www.linkedin.com/in/mamuntheprogrammer/",
+          "https://www.youtube.com/@MamunTheProgrammer",
+          "https://porbobd.com"
+        ]
+      }
+    </script>
+
+    <!-- Without JavaScript, show the fully readable classic layout instead of the 3D stage -->
+    <noscript>
+      <style>
+        #intro-overlay, #scroll-driver-track, #tunnel-canvas-container, #tunnel-2d-fallback { display: none !important; }
+        #spatial-viewport { position: relative !important; width: 100% !important; height: auto !important; overflow: visible !important; perspective: none !important; }
+        #spatial-stage { position: relative !important; inset: auto !important; height: auto !important; max-width: 1280px; margin: 0 auto; padding: 5.5rem 1rem 6rem; display: flex; flex-direction: column; gap: 3rem; transform-style: flat !important; }
+        .spatial-station { position: relative !important; inset: auto !important; height: auto !important; opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; transform: none !important; padding: 0 !important; }
+        .station-frame { max-height: none !important; overflow: visible !important; }
+        #toggle-3d-btn, #toggle-theme-btn, .pipeline-bottom-dock { display: none !important; }
+        .only-3d { display: none !important; }
+        .only-classic { display: inline !important; }
+      </style>
+    </noscript>
   </head>
   <body>
+    <a class="skip-link" href="#section-00-source">Skip to main content</a>
+
     <!-- ====================================================================
-         INTRO SCREEN (First Load Only; Skip via Button, Session, or Reduced-Motion)
+         INTRO SCREEN (Animated on every load; skip via button or reduced-motion)
          ==================================================================== -->
     <aside id="intro-overlay" aria-label="Introductory animation" role="region">
       <button id="intro-skip-btn" class="intro-skip-btn" type="button" aria-label="Skip introductory handwriting animation">
@@ -56,13 +120,10 @@
             <path class="plotter-path" d="M 830 90 L 830 130 C 830 140 850 140 850 130 L 850 90 L 850 140" />
             <path class="plotter-path" d="M 870 90 L 870 140 M 870 105 C 880 92 900 92 900 110 L 900 140 C 900 160 880 175 840 180" />
           </g>
-          <g class="plotter-fill" fill="#5eead4" fill-opacity="0.12" style="opacity: 0;">
-            <text x="35" y="140" font-family="'JetBrains Mono', monospace" font-size="64" font-weight="700">Md Abdullah Al Mamun</text>
-          </g>
         </svg>
 
         <p style="font-family: var(--font-mono); font-size: 0.84rem; color: var(--text-muted); text-align: center; letter-spacing: 0.05em;">
-          INITIALIZING 3D SPATIAL PIPELINE <span style="color: var(--line-mint)">[SCROLL TO FLY THROUGH NODES 00 ➔ 06]</span>...
+          INITIALIZING DATA PIPELINE <span style="color: var(--line-mint)">[EXPLORE STAGES 00 ➔ 05]</span>...
         </p>
       </div>
     </aside>
@@ -72,9 +133,9 @@
          ==================================================================== -->
     <header class="site-header">
       <div class="header-container">
-        <a href="#section-00-source" class="header-brand" aria-label="The Pipeline - Md Abdullah Al Mamun">
-          <img src="./assets/profile.jpg" alt="Md Abdullah Al Mamun" class="header-avatar-mini" />
-          <span>MAMUN<span style="color: var(--line-mint)">.DEV</span></span>
+        <a href="#section-00-source" class="header-brand" aria-label="MamunTheProgrammer — Md Abdullah Al Mamun">
+          <img src="./assets/profile.jpg" alt="Md Abdullah Al Mamun" class="header-avatar-mini" width="30" height="30" decoding="async" />
+          <span class="brand-wordmark">Mamun<span class="brand-wordmark-accent">TheProgrammer</span></span>
         </a>
 
         <!-- SAP-style Command Bar -->
@@ -129,7 +190,7 @@
       <!-- Full-Viewport 3D WebGL Pipeline Tunnel Canvas -->
       <div id="tunnel-canvas-container" aria-hidden="true"></div>
 
-      <!-- 3D Z-Axis Stage holding all 7 Stations -->
+      <!-- 3D Z-Axis Stage holding all 6 Stations -->
       <main id="spatial-stage">
 
         <!-- ================================================================
@@ -139,10 +200,13 @@
           <div class="station-frame">
             <div class="station-top-bar">
               <div class="station-node-badge">
-                <span class="station-node-number">[NODE 00]</span>
-                <span>SOURCE // IDENTITY & REFINERY</span>
+                <span class="station-node-number">00</span>
+                <span>SOURCE // IDENTITY &amp; REFINERY</span>
               </div>
-              <span class="technical-tag">SCROLL TO FLY THROUGH 3D PIPELINE ⇣</span>
+              <span class="technical-tag">
+                <span class="only-3d">SCROLL TO FLY THROUGH 3D PIPELINE ⇣</span>
+                <span class="only-classic">SCROLL TO EXPLORE ⇣</span>
+              </span>
             </div>
 
             <div class="hero-spatial-grid">
@@ -158,11 +222,24 @@
                       <circle cx="156" cy="80" r="2.5" fill="#5eead4" />
                       <circle cx="4" cy="80" r="2.5" fill="#5eead4" />
                     </svg>
-                    <img
-                      src="./assets/profile.jpg"
-                      alt="Md Abdullah Al Mamun portrait"
-                      class="portrait-round-img"
-                    />
+                    <button
+                      type="button"
+                      id="portrait-lightbox-btn"
+                      class="portrait-zoom-trigger"
+                      aria-label="View a larger portrait of Md Abdullah Al Mamun"
+                      aria-haspopup="dialog"
+                    >
+                      <img
+                        src="./assets/profile.jpg"
+                        alt="Md Abdullah Al Mamun portrait"
+                        class="portrait-round-img"
+                        width="148"
+                        height="148"
+                        decoding="async"
+                        fetchpriority="high"
+                      />
+                      <span class="portrait-zoom-hint" aria-hidden="true">⤢</span>
+                    </button>
                     <span class="portrait-status-pill">● DHAKA, BD</span>
                   </div>
 
@@ -176,8 +253,8 @@
                   </div>
                 </div>
 
-                <p class="hero-bio" style="margin-top: 0.85rem;">
-                  Architecting end-to-end data pipelines, enterprise SAP workflows (ABAP technical engineering + SD &amp; MM functional processes), Python automation suites, full-stack web platforms, agentic AI loops, and Flutter mobile apps.
+                <p class="hero-bio" id="hero-bio" style="margin-top: 0.85rem;" aria-live="polite">
+                  Python-first engineer turning messy files, folders, and APIs into dependable systems — ETL pipelines, Pandas analysis, Django/Flask backends, and Tkinter desktop tools.
                 </p>
 
                 <!-- Special Venture Banner: porbobd.com -->
@@ -194,7 +271,8 @@
 
                 <div class="hero-cta-group">
                   <a href="#section-01-extract" class="btn-primary">
-                    <span>ENTER 3D PIPELINE</span>
+                    <span class="only-3d">ENTER 3D PIPELINE</span>
+                    <span class="only-classic">EXPLORE THE PIPELINE</span>
                     <span>⇣</span>
                   </a>
                   <a href="https://www.youtube.com/@MamunTheProgrammer" target="_blank" rel="noopener noreferrer" class="btn-secondary btn-youtube">
@@ -225,7 +303,7 @@
                 <div class="refinery-visualizer-stage">
                   <svg id="refinery-svg-stream" class="refinery-svg-diagram" viewBox="0 0 420 200" fill="none">
                     <!-- Left: Messy Raw Entropy Zone -->
-                    <text x="14" y="24" fill="#fbbf24" font-family="monospace" font-size="9" font-weight="bold">01. MESSY INPUT</text>
+                    <text id="refinery-svg-label-in" x="14" y="24" fill="#fbbf24" font-family="monospace" font-size="9" font-weight="bold">01. RAW FILES</text>
                     <g stroke="#fbbf24" stroke-width="1.5" opacity="0.85">
                       <path d="M 14 55 Q 35 25, 52 75 T 88 50 T 122 90" fill="none" stroke-dasharray="4 3">
                         <animate attributeName="stroke-dashoffset" from="28" to="0" dur="1.4s" repeatCount="indefinite" />
@@ -240,7 +318,7 @@
                     </g>
 
                     <!-- Center: 3D Isometric Hexagonal Refinery Gate -->
-                    <text x="154" y="24" fill="#5eead4" font-family="monospace" font-size="9" font-weight="bold">02. REFINERY GATE</text>
+                    <text id="refinery-svg-label-gate" x="154" y="24" fill="#5eead4" font-family="monospace" font-size="9" font-weight="bold">02. PYTHON ENGINE</text>
                     <g transform="translate(205, 105)">
                       <polygon points="0,-58 50,-28 50,28 0,58 -50,28 -50,-28" stroke="#5eead4" stroke-width="2" fill="rgba(94,234,212,0.06)" />
                       <polygon points="0,-40 35,-20 35,20 0,40 -35,20 -35,-20" stroke="#fbbf24" stroke-width="1.2" stroke-dasharray="4 3" fill="none">
@@ -251,7 +329,7 @@
                     </g>
 
                     <!-- Right: Structured Clean Schema Lattice -->
-                    <text x="292" y="24" fill="#5eead4" font-family="monospace" font-size="9" font-weight="bold">03. MEANINGFUL SQL/SAP</text>
+                    <text id="refinery-svg-label-out" x="292" y="24" fill="#5eead4" font-family="monospace" font-size="9" font-weight="bold">03. CLEAN DATA</text>
                     <g stroke="#5eead4" stroke-width="1.5">
                       <line x1="255" y1="80" x2="305" y2="80" stroke-dasharray="5 3">
                         <animate attributeName="stroke-dashoffset" from="16" to="0" dur="0.9s" repeatCount="indefinite" />
@@ -282,14 +360,34 @@
 
                 <!-- Interactive Domain Stream Selector -->
                 <div class="refinery-controls-row">
-                  <div style="display: flex; flex-wrap: wrap; gap: 0.3rem;">
-                    <button type="button" class="filter-btn active" data-refinery-domain="python">PYTHON</button>
-                    <button type="button" class="filter-btn" data-refinery-domain="sap">SAP ERP</button>
-                    <button type="button" class="filter-btn" data-refinery-domain="data">SQL DATA</button>
-                    <button type="button" class="filter-btn" data-refinery-domain="ai">AGENTIC AI</button>
+                  <div class="refinery-domain-tabs" role="tablist" aria-label="Explore domains">
+                    <button type="button" class="filter-btn active" id="refinery-tab-python" role="tab" aria-selected="true" aria-controls="refinery-domain-panel" tabindex="0" data-refinery-domain="python">PYTHON</button>
+                    <button type="button" class="filter-btn" id="refinery-tab-sap" role="tab" aria-selected="false" aria-controls="refinery-domain-panel" tabindex="-1" data-refinery-domain="sap">SAP ERP</button>
+                    <button type="button" class="filter-btn" id="refinery-tab-data" role="tab" aria-selected="false" aria-controls="refinery-domain-panel" tabindex="-1" data-refinery-domain="data">SQL DATA</button>
+                    <button type="button" class="filter-btn" id="refinery-tab-ai" role="tab" aria-selected="false" aria-controls="refinery-domain-panel" tabindex="-1" data-refinery-domain="ai">AGENTIC AI</button>
                   </div>
                   <button type="button" id="refinery-inject-btn" class="btn-primary" style="padding: 0.32rem 0.7rem; font-size: 0.72rem;">
                     <span>⚡ INJECT MESSY DATA</span>
+                  </button>
+                </div>
+
+                <!-- Domain-specific interactive view, swapped by the tabs -->
+                <div id="refinery-domain-panel" class="refinery-domain-panel" role="tabpanel" aria-labelledby="refinery-tab-python" tabindex="0">
+                  <div class="refinery-domain-head">
+                    <h3 id="refinery-domain-title" class="refinery-domain-title">Python // Systems Engine</h3>
+                    <span id="refinery-domain-tag" class="technical-tag">CORE LANGUAGE</span>
+                  </div>
+                  <p id="refinery-domain-desc" class="refinery-domain-desc">
+                    Turning messy files, folders, and APIs into dependable Python systems — from ETL pipelines to desktop tools.
+                  </p>
+                  <ul id="refinery-domain-points" class="refinery-domain-points">
+                    <li>ETL &amp; file-processing pipelines</li>
+                    <li>Django &amp; Flask backends</li>
+                    <li>Pandas &amp; NumPy analysis</li>
+                    <li>Tkinter desktop utilities</li>
+                  </ul>
+                  <button type="button" id="refinery-analysis-btn" class="refinery-analysis-btn" data-open-analysis hidden>
+                    OPEN LATEST DATA ANALYSIS ↗
                   </button>
                 </div>
 
@@ -311,12 +409,13 @@
             <div class="station-top-bar">
               <div>
                 <div class="station-node-badge">
-                  <span class="station-node-number">[NODE 01]</span>
+                  <span class="station-node-number">01</span>
                   <span>EXTRACT // 6 DOMAIN STATIONS</span>
                 </div>
                 <h2 class="station-title">What I Work With</h2>
+                <p class="station-subtitle">Six specialized domains, connected into one delivery pipeline.</p>
               </div>
-              <p class="station-subtitle">Six specialized stations unified by end-to-end process automation.</p>
+              <span class="technical-tag">PYTHON • SAP • DATA • WEB • AI • FLUTTER</span>
             </div>
 
             <div class="stations-grid">
@@ -328,7 +427,6 @@
                     <div class="station-category">CORE LANGUAGE</div>
                     <h3 class="station-name">Python</h3>
                   </div>
-                  <span class="technical-tag technical-tag-amber">AUTO</span>
                 </div>
                 <ul class="station-items-list">
                   <li class="station-item">Automated ETL &amp; file-processing pipelines</li>
@@ -346,7 +444,6 @@
                     <div class="station-category">TECHNO-FUNCTIONAL</div>
                     <h3 class="station-name">SAP (ABAP / SD / MM)</h3>
                   </div>
-                  <span class="technical-tag technical-tag-amber">AUTO</span>
                 </div>
                 <ul class="station-items-list">
                   <li class="station-item">Technical: Custom ABAP reports, ALV grids, BAPIs &amp; enhancements</li>
@@ -364,7 +461,6 @@
                     <div class="station-category">PIPELINES &amp; QUERIES</div>
                     <h3 class="station-name">Data Analysis</h3>
                   </div>
-                  <span class="technical-tag technical-tag-amber">AUTO</span>
                 </div>
                 <ul class="station-items-list">
                   <li class="station-item">Ingesting messy multi-sheet workbooks into clean SQL schemas</li>
@@ -372,6 +468,9 @@
                   <li class="station-item">Relational &amp; NoSQL querying (SQL, MySQL, MongoDB)</li>
                   <li class="station-item">Executive KPI reporting &amp; tabular normalization</li>
                 </ul>
+                <button type="button" class="inline-analysis-btn" data-open-analysis>
+                  VIEW LATEST DATA ANALYSIS ↗
+                </button>
               </article>
 
               <!-- 4. Web Development -->
@@ -382,7 +481,6 @@
                     <div class="station-category">FULL STACK</div>
                     <h3 class="station-name">Web Development</h3>
                   </div>
-                  <span class="technical-tag technical-tag-amber">AUTO</span>
                 </div>
                 <ul class="station-items-list">
                   <li class="station-item">Interactive front-ends with JavaScript &amp; React</li>
@@ -400,7 +498,6 @@
                     <div class="station-category">INTELLIGENCE</div>
                     <h3 class="station-name">AI &amp; Agentic AI</h3>
                   </div>
-                  <span class="technical-tag technical-tag-amber">AUTO</span>
                 </div>
                 <ul class="station-items-list">
                   <li class="station-item">Agentic AI loops: autonomous <code>PLAN ➔ ACT ➔ OBSERVE</code> workflows</li>
@@ -417,7 +514,6 @@
                     <div class="station-category">CROSS-PLATFORM</div>
                     <h3 class="station-name">Flutter &amp; Dart</h3>
                   </div>
-                  <span class="technical-tag technical-tag-amber">AUTO</span>
                 </div>
                 <ul class="station-items-list">
                   <li class="station-item">Native-grade mobile apps built with Flutter &amp; Dart</li>
@@ -438,7 +534,7 @@
             <div class="station-top-bar">
               <div>
                 <div class="station-node-badge">
-                  <span class="station-node-number">[NODE 02]</span>
+                  <span class="station-node-number">02</span>
                   <span>BRIDGE // SAP TECHNO-FUNCTIONAL &amp; PORBOBD.COM</span>
                 </div>
                 <h2 class="station-title">Enterprise SAP Bridge &amp; Active Venture</h2>
@@ -513,7 +609,7 @@
             <div class="station-top-bar">
               <div>
                 <div class="station-node-badge">
-                  <span class="station-node-number">[NODE 03]</span>
+                  <span class="station-node-number">03</span>
                   <span>TRANSFORM // TOOLBELT DATAFRAME (/nSE16)</span>
                 </div>
                 <h2 class="station-title">Toolbelt &amp; Stack Schema</h2>
@@ -609,7 +705,7 @@
             <div class="station-top-bar">
               <div>
                 <div class="station-node-badge">
-                  <span class="station-node-number">[NODE 04]</span>
+                  <span class="station-node-number">04</span>
                   <span>LOAD // LIVE GITHUB REPOSITORIES (/nPROJ)</span>
                 </div>
                 <h2 class="station-title">Open-Source Projects &amp; Systems</h2>
@@ -626,110 +722,24 @@
             </div>
 
             <div id="projects-grid-container" class="projects-grid" aria-live="polite"></div>
+            <noscript>
+              <p style="font-family: var(--font-mono); color: var(--text-muted); padding: 1rem 0;">
+                Live repository records need JavaScript. Browse the full list directly on
+                <a href="https://github.com/Mamuntheprogrammer?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub ↗</a>.
+              </p>
+            </noscript>
           </div>
         </section>
 
         <!-- ================================================================
-             STATION 05: AUTOMATE ("Things I Stopped Doing By Hand")
+             STATION 05: REPORT ("Contact" SQL Terminal + YouTube + Ventures) ("Contact" SQL Terminal + YouTube + Ventures)
              ================================================================ -->
-        <section id="section-04-automate" class="spatial-station" aria-label="05 Automate Before and After">
+        <section id="section-06-report" class="spatial-station" aria-label="05 Report Contact">
           <div class="station-frame">
             <div class="station-top-bar">
               <div>
                 <div class="station-node-badge">
-                  <span class="station-node-number">[NODE 05]</span>
-                  <span>AUTOMATE // BEFORE ➔ AFTER TRANSFORMATIONS</span>
-                </div>
-                <h2 class="station-title">Things I Stopped Doing By Hand</h2>
-              </div>
-              <span class="technical-tag technical-tag-amber">MANUAL ➔ PIPELINE</span>
-            </div>
-
-            <div class="automate-grid">
-              <!-- 1. Excel Merger -->
-              <article class="automate-card">
-                <div class="automate-card-title">
-                  <span data-icon="automation" style="width:20px; height:20px;"></span>
-                  <span>Multi-Workbook Excel Consolidation</span>
-                </div>
-                <div class="before-after-flow">
-                  <div class="flow-box before">
-                    <span class="flow-label">BEFORE: MANUAL COPY-PASTE ACROSS FILES</span>
-                    <p class="flow-text">Opening dozens of fragmented Excel files one by one, aligning mismatched columns, and manually fixing broken rows.</p>
-                  </div>
-                  <div class="flow-box after">
-                    <span class="flow-label">AFTER: <code>Excel_Merger_Desktop_Application-</code></span>
-                    <p class="flow-text">Python Tkinter GUI tool that scans entire folders, normalizes headers, and merges all sheets into a clean master file automatically.</p>
-                  </div>
-                </div>
-              </article>
-
-              <!-- 2. Excel to SQL -->
-              <article class="automate-card">
-                <div class="automate-card-title">
-                  <span data-icon="data" style="width:20px; height:20px;"></span>
-                  <span>Spreadsheet to Relational SQL Engine</span>
-                </div>
-                <div class="before-after-flow">
-                  <div class="flow-box before">
-                    <span class="flow-label">BEFORE: MANUAL SCHEMA &amp; INSERT SCRIPTS</span>
-                    <p class="flow-text">Manually inspecting spreadsheet columns, writing CREATE TABLE boilerplate, and struggling with complex VLOOKUP filters.</p>
-                  </div>
-                  <div class="flow-box after">
-                    <span class="flow-label">AFTER: <code>Excel_to_sql (Excel2SQL)</code></span>
-                    <p class="flow-text">Desktop engine that ingests raw Excel workbooks, infers SQL schemas automatically, and runs relational SELECT joins on the fly.</p>
-                  </div>
-                </div>
-              </article>
-
-              <!-- 3. SAP ABAP / SD / MM Automation -->
-              <article class="automate-card">
-                <div class="automate-card-title">
-                  <span data-icon="sap" style="width:20px; height:20px;"></span>
-                  <span>SAP Order &amp; Procurement Batch Processing</span>
-                </div>
-                <div class="before-after-flow">
-                  <div class="flow-box before">
-                    <span class="flow-label">BEFORE: REPETITIVE /nVA01 &amp; /nME21N ENTRY</span>
-                    <p class="flow-text">Keying bulk sales orders and purchase requisitions line-by-line across SAP GUI screens and reconciling stock manually.</p>
-                  </div>
-                  <div class="flow-box after">
-                    <span class="flow-label">AFTER: ABAP BAPI &amp; ALV AUTOMATION PIPELINE</span>
-                    <p class="flow-text">Custom ABAP upload programs invoking BAPIs with pre-validation rules and interactive ALV exception logs for SD/MM teams.</p>
-                  </div>
-                </div>
-              </article>
-
-              <!-- 4. Agentic AI Workflow -->
-              <article class="automate-card">
-                <div class="automate-card-title">
-                  <span data-icon="agentic" style="width:20px; height:20px;"></span>
-                  <span>Agentic AI Triage &amp; Code Scaffolding</span>
-                </div>
-                <div class="before-after-flow">
-                  <div class="flow-box before">
-                    <span class="flow-label">BEFORE: REPETITIVE BOILERPLATE &amp; LOG PARSING</span>
-                    <p class="flow-text">Writing repetitive CRUD/data-mapping boilerplate by hand and manually tracing unstructured data anomalies.</p>
-                  </div>
-                  <div class="flow-box after">
-                    <span class="flow-label">AFTER: AGENTIC PLAN ➔ ACT ➔ OBSERVE LOOP</span>
-                    <p class="flow-text">Structured AI agent workflows that parse inputs, generate candidate schemas, run automated checks, and present verified diffs for human review.</p>
-                  </div>
-                </div>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <!-- ================================================================
-             STATION 06: REPORT ("Contact" SQL Terminal + YouTube + Ventures)
-             ================================================================ -->
-        <section id="section-06-report" class="spatial-station" aria-label="06 Report Contact">
-          <div class="station-frame">
-            <div class="station-top-bar">
-              <div>
-                <div class="station-node-badge">
-                  <span class="station-node-number">[NODE 06]</span>
+                  <span class="station-node-number">05</span>
                   <span>REPORT // COMMUNICATION ENDPOINT (/nCONTACT)</span>
                 </div>
                 <h2 class="station-title">Connect &amp; Collaborate</h2>
@@ -801,17 +811,18 @@
                     <span class="technical-tag" style="width:fit-content;">CONNECT PROFESSIONALLY</span>
                   </div>
 
-                  <!-- 6. Resume PDF & PyGems -->
+                  <!-- 6. Resume -->
                   <div class="contact-card-item">
-                    <span class="contact-card-label">RESUME / CV &amp; PYGEMS</span>
-                    <div style="display: flex; flex-direction: column; gap: 0.3rem;">
-                      <a href="https://pygems.com" target="_blank" rel="noopener noreferrer" class="contact-card-val">
-                        pygems.com
-                      </a>
-                      <span style="font-size: 0.75rem; color: var(--text-muted);">
-                        📄 Resume PDF: <strong style="color: var(--packet-amber);">Link Adding Soon</strong>
-                      </span>
-                    </div>
+                    <span class="contact-card-label">RESUME / CV</span>
+                    <span class="resume-summary">One-page PDF resume — skills, selected projects, and contact details.</span>
+                    <a
+                      class="btn-copy resume-download-btn"
+                      href="./assets/Md_Abdullah_Al_Mamun_Resume.pdf"
+                      download="Md_Abdullah_Al_Mamun_Resume.pdf"
+                      type="application/pdf"
+                    >
+                      <span>⬇ DOWNLOAD RESUME</span>
+                    </a>
                   </div>
                 </div>
 
@@ -829,7 +840,7 @@
 
     <!-- ====================================================================
          BOTTOM 3D PIPELINE SCRUBBER HUD DOCK
-         Allows instant 1-click flying between any of the 7 3D Stations
+         Allows instant 1-click flying between any of the 6 3D Stations
          ==================================================================== -->
     <nav class="pipeline-bottom-dock" aria-label="3D Pipeline Station Navigator">
       <button type="button" id="dock-prev-btn" class="dock-nav-arrow" aria-label="Previous 3D Station" title="Previous Station">◀</button>
@@ -856,19 +867,49 @@
       </button>
       <button type="button" class="dock-step-btn" data-step="5">
         <span class="dock-step-num">05</span>
-        <span class="dock-step-label">AUTOMATE</span>
-      </button>
-      <button type="button" class="dock-step-btn" data-step="6">
-        <span class="dock-step-num">06</span>
         <span class="dock-step-label">CONTACT</span>
       </button>
 
       <button type="button" id="dock-next-btn" class="dock-nav-arrow" aria-label="Next 3D Station" title="Next Station">▶</button>
-      <span id="depth-meter-badge" class="depth-meter-badge">Z:0.0m [NODE 00]</span>
+      <span id="depth-meter-badge" class="depth-meter-badge">Z:0.0m // STAGE 00</span>
     </nav>
 
     <!-- Virtual Scroll Driver Track (Provides smooth scroll height for 3D Z-axis reveal) -->
     <div id="scroll-driver-track" aria-hidden="true"></div>
+
+    <!-- ====================================================================
+         PORTRAIT LIGHTBOX
+         ==================================================================== -->
+    <div id="portrait-modal" class="modal-backdrop portrait-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="portrait-modal-title">
+      <div class="portrait-modal-window">
+        <button id="portrait-close-btn" class="modal-close-btn portrait-modal-close" type="button" aria-label="Close portrait view">[ESC / CLOSE]</button>
+        <img src="./assets/profile.jpg" alt="Md Abdullah Al Mamun" class="portrait-modal-img" width="800" height="800" />
+        <p id="portrait-modal-title" class="portrait-modal-caption">Md Abdullah Al Mamun <span>// Dhaka, Bangladesh</span></p>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         EMBEDDED DATA ANALYSIS DASHBOARD (desktop + mobile HTML versions)
+         ==================================================================== -->
+    <div id="analysis-modal" class="modal-backdrop analysis-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="analysis-modal-title">
+      <div class="analysis-modal-window">
+        <header class="analysis-modal-header">
+          <div>
+            <span class="technical-tag technical-tag-amber">DATA ANALYSIS // CASE STUDY</span>
+            <h2 id="analysis-modal-title" class="analysis-modal-title">Aristopharma — Target vs Achievement</h2>
+          </div>
+          <button id="analysis-close-btn" class="modal-close-btn" type="button" aria-label="Close data analysis view">[ESC / CLOSE]</button>
+        </header>
+        <div class="analysis-modal-body">
+          <div id="analysis-loading" class="analysis-loading">Loading analysis dashboard…</div>
+          <iframe id="analysis-frame" title="Aristopharma target vs achievement analysis dashboard" loading="lazy"></iframe>
+        </div>
+        <footer class="analysis-modal-footer">
+          <span>Interactive dashboard // desktop &amp; mobile layouts</span>
+          <a href="./assets/EM00013923.html" target="_blank" rel="noopener noreferrer">OPEN IN NEW TAB ↗</a>
+        </footer>
+      </div>
+    </div>
 
     <!-- ====================================================================
          ZEN OF PYTHON TERMINAL MODAL (Easter Egg: "import this")
@@ -883,7 +924,8 @@
       </div>
     </div>
 
-    <!-- Scripts (Static ES Modules) -->
-    <script type="module" src="./js/main.js"></script>
+    <!-- Bundled classic script so index.html also works when opened from disk.
+         Rebuild with: npm run build -->
+    <script src="./js/app.bundle.js"></script>
   </body>
 </html>

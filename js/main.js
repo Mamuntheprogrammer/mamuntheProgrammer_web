@@ -10,6 +10,8 @@ import { injectIcons, initIconAnimations } from './icons.js';
 import { loadProjects } from './projects.js';
 import { initCommandBar } from './command.js';
 import { init3DScene } from './scene3d.js';
+import { initPortraitLightbox, initAnalysisModal } from './modals.js';
+import { localGet, localSet } from './utils/storage.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Inject custom hand-crafted line icons
@@ -22,19 +24,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. Setup email copy button
   initEmailCopy();
 
-  // 4. Setup Theme Toggle (Dark Oscilloscope / Paper Blueprint)
+  // 4. Setup the portrait lightbox and the embedded data-analysis modal
+  initPortraitLightbox();
+  initAnalysisModal();
+
+  // 5. Setup Theme Toggle (Dark Oscilloscope / Paper Blueprint)
   initThemeToggle();
 
-  // 5. Initialize Continuous Spine
-  initSpine();
-
-  // 6. Load Projects from GitHub API or fallback
-  loadProjects();
-
-  // 7. Setup 3D Scene / 2D fallback
+  // 6. Decide layout mode first (desktop 3D vs classic/mobile), then wire scrolling
   init3DScene();
 
-  // 8. Run Intro (First load only)
+  // 7. Initialize navigation: 3D reveal on desktop, classic scroll observer elsewhere
+  initSpine();
+
+  // 8. Load Projects from GitHub API or fallback
+  loadProjects();
+
+  // 9. Run Intro (First load only)
   initIntro(() => {
     // Re-verify spine alignment after intro fades out
     window.dispatchEvent(new Event('resize'));
@@ -82,20 +88,23 @@ function initThemeToggle() {
   const themeBtn = document.getElementById('toggle-theme-btn');
   if (!themeBtn) return;
 
-  const savedTheme = localStorage.getItem('mamun_theme') || 'dark';
-  if (savedTheme === 'paper') {
-    document.documentElement.setAttribute('data-theme', 'paper');
-    themeBtn.textContent = 'THEME: PAPER';
-  } else {
-    document.documentElement.setAttribute('data-theme', 'dark');
-    themeBtn.textContent = 'THEME: DARK';
-  }
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+
+  const applyTheme = (nextTheme) => {
+    document.documentElement.setAttribute('data-theme', nextTheme);
+    localSet('mamun_theme', nextTheme);
+    themeBtn.textContent = nextTheme === 'paper' ? 'THEME: PAPER' : 'THEME: DARK';
+    themeBtn.setAttribute('aria-pressed', String(nextTheme === 'paper'));
+    if (themeColor) {
+      themeColor.setAttribute('content', nextTheme === 'paper' ? '#f1f5f9' : '#070b10');
+    }
+  };
+
+  const savedTheme = localGet('mamun_theme') || 'dark';
+  applyTheme(savedTheme === 'paper' ? 'paper' : 'dark');
 
   themeBtn.addEventListener('click', () => {
     const isPaper = document.documentElement.getAttribute('data-theme') === 'paper';
-    const nextTheme = isPaper ? 'dark' : 'paper';
-    document.documentElement.setAttribute('data-theme', nextTheme);
-    localStorage.setItem('mamun_theme', nextTheme);
-    themeBtn.textContent = nextTheme === 'paper' ? 'THEME: PAPER' : 'THEME: DARK';
+    applyTheme(isPaper ? 'dark' : 'paper');
   });
 }
